@@ -155,6 +155,28 @@ class EMC_CustomEventsForms {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		$this->loader->add_action( 'init', $plugin_admin, 'my_register_user_taxonomy' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'my_add_group_admin_page' );
+    /* Create custom columns for the manage group page. */
+    $this->loader->add_filter( 'manage_edit-group_columns', $plugin_admin,'my_manage_group_user_column' );
+    /* Customize the output of the custom column on the manage groups page. */
+    $this->loader->add_action( 'manage_group_custom_column', $plugin_admin, 'my_manage_group_column', 10, 3 );
+    /* Add section to the edit user page in the admin to select group. */
+    $this->loader->add_action( 'show_user_profile', $plugin_admin, 'my_edit_user_group_section' );
+    $this->loader->add_action( 'edit_user_profile', $plugin_admin, 'my_edit_user_group_section' );
+    /* Update the group terms when the edit user page is updated. */
+    $this->loader->add_action( 'personal_options_update', $plugin_admin, 'my_save_user_group_terms' );
+    $this->loader->add_action( 'edit_user_profile_update', $plugin_admin, 'my_save_user_group_terms' );
+    /* Filter the 'sanitize_user' to disable username. */
+    $this->loader->add_filter( 'sanitize_user', $plugin_admin, 'my_disable_username' );
+
+
+
+
+
+
+
+
 	}
 
 	/**

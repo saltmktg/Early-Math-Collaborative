@@ -13,12 +13,13 @@
  * @package           EMC_CustomEventsForms
  *
  * @wordpress-plugin
- * Plugin Name:       WordPress Plugin Boilerplate
- * Plugin URI:        http://example.com/emc-custom-events-forms-uri/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Plugin Name:       EMC custom events forms
+ * Plugin URI:        http://saucal.com/emc-custom-events-forms-uri/
+ * Description:       this plugins applys custom fuctionality refered on Events 
+ * and forms and users capabilities.
  * Version:           1.0.0
- * Author:            Your Name or Your Company
- * Author URI:        http://example.com/
+ * Author:            Saucal
+ * Author URI:        http://saucal.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       emc-custom-events-forms
@@ -34,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * The code that runs during plugin activation.
  * This action is documented in includes/class-emc-custom-events-forms-activator.php
  */
-function activate_plugin() {
+function activate_emc_custom_events_forms() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-emc-custom-events-forms-activator.php';
 	EMC_CustomEventsForms_Activator::activate();
 }
@@ -43,13 +44,13 @@ function activate_plugin() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-emc-custom-events-forms-deactivator.php
  */
-function deactivate_plugin() {
+function deactivate_emc_custom_events_forms() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-emc-custom-events-forms-deactivator.php';
 	EMC_CustomEventsForms_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_plugin' );
-register_deactivation_hook( __FILE__, 'deactivate_plugin' );
+register_activation_hook( __FILE__, 'activate_emc_custom_events_forms' );
+register_deactivation_hook( __FILE__, 'deactivate_emc_custom_events_forms' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -66,10 +67,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-emc-custom-events-forms.ph
  *
  * @since    1.0.0
  */
-function run_plugin() {
+function run_emc_custom_events_forms() {
 
 	$plugin = new EMC_CustomEventsForms();
 	$plugin->run();
 
 }
-run_plugin();
+run_emc_custom_events_forms();

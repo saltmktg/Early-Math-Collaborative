@@ -270,11 +270,18 @@ class EMC_CustomEventsForms_Admin {
    *
    * @param string $username The username of the user before registration is complete.
    */
-  function my_disable_username( $username ) {
+  public function my_disable_username( $username ) {
 
     if ( 'group' === $username )
       $username = '';
 
     return $username;
+  }
+
+  /**
+   * Includes the export code from ACF
+   */
+  public function acf_export_configs(){
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/acf-export-file.php';
   }
 }

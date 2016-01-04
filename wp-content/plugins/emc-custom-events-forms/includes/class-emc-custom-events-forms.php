@@ -170,12 +170,7 @@ class EMC_CustomEventsForms {
     /* Filter the 'sanitize_user' to disable username. */
     $this->loader->add_filter( 'sanitize_user', $plugin_admin, 'my_disable_username' );
 
-
-
-
-
-
-
+		$this->loader->add_action( 'plugins_loaded', $plugin_admin, 'acf_export_configs' );
 
 	}
 

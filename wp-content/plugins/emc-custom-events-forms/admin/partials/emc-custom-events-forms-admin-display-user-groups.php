@@ -25,7 +25,7 @@
         if ( !empty( $terms ) ) {
 
           foreach ( $terms as $term ) { ?>
-            <input type="radio" name="group" id="group-<?php echo esc_attr( $term->slug ); ?>" value="<?php echo esc_attr( $term->slug ); ?>" <?php checked( true, is_object_in_term( $user->ID, 'group', $term ) ); ?> /> <label for="group-<?php echo esc_attr( $term->slug ); ?>"><?php echo $term->name; ?></label> <br />
+            <input type="checkbox" name="group[]" id="group-<?php echo esc_attr( $term->slug ); ?>" value="<?php echo esc_attr( $term->slug ); ?>" <?php checked( true, is_object_in_term( $user->ID, 'group', $term ) ); ?> /> <label for="group-<?php echo esc_attr( $term->slug ); ?>"><?php echo $term->name; ?></label> <br />
           <?php }
         }
 

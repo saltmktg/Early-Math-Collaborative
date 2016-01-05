@@ -254,12 +254,10 @@ class EMC_CustomEventsForms_Admin {
     if ( !current_user_can( 'edit_user', $user_id ) && current_user_can( $tax->cap->assign_terms ) )
       return false;
 
-    $term = esc_attr( $_POST['group'] );
+    $terms = $_POST['group'];
 
-    /* Sets the terms (we're just using a single term) for the user. */
-    wp_set_object_terms( $user_id, array( $term ), 'group', false);
-
-    clean_object_term_cache( $user_id, 'group' );
+     wp_set_object_terms( $user_id, $terms , 'group', false);
+     clean_object_term_cache( $user_id, 'group' );
   }
   /**
    * Disables the 'group' username when someone registers.  

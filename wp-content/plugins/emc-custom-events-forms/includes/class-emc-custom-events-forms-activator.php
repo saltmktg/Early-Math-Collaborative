@@ -30,9 +30,18 @@ class EMC_CustomEventsForms_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
+    remove_role('form_events_admin');
     add_role( 'form_events_admin', 'Form/Events Administrator', array( 'read' => true, 'level_0' => true ) );
-    add_role( 'coach', 'Coach', array( 'read' => true, 'level_0' => true ) );
-    add_role( 'teacher', 'Teacher', array( 'read' => true, 'level_0' => true ) );
+    remove_role('coach');
+    add_role( 'coach', 'Coach', array( 'read' => true, 
+                                       'coaching' => true) );
+    remove_role('teacher');
+    add_role( 'teacher', 'Teacher', array( 'read' => true, 
+                                           'teaching' => true ) );
+
+    
+
+
 	}
 
 }

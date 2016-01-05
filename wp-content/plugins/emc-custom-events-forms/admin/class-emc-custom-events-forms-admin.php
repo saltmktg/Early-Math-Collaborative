@@ -226,7 +226,7 @@ class EMC_CustomEventsForms_Admin {
    * @param object $user The user object currently being edited.
    */
   public function my_edit_user_group_section( $user ) {
-
+    //print_r($user->allcaps);
     $tax = get_taxonomy( 'group' );
 
     /* Make sure the user can assign terms of the group taxonomy before proceeding. */

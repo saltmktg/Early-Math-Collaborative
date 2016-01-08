@@ -108,20 +108,20 @@ class EMC_CustomEventsForms_Admin {
    */
   public function my_register_user_taxonomy() {
     register_taxonomy(
-      'group',
+      'group-events-forms',
       'user',
       array(
         'public' => true,
         'labels' => array(
-          'name' => __( 'Groups' ),
-          'singular_name' => __( 'Group' ),
-          'menu_name' => __( 'Groups' ),
-          'search_items' => __( 'Search Groups' ),
-          'popular_items' => __( 'Popular Groups' ),
-          'all_items' => __( 'All Groups' ),
-          'edit_item' => __( 'Edit Group' ),
-          'update_item' => __( 'Update Group' ),
-          'add_new_item' => __( 'Add New Group' ),
+          'name' => __( 'Groups for Events and Forms' ),
+          'singular_name' => __( 'Group for Events and Forms' ),
+          'menu_name' => __( 'Groups for Events and Forms' ),
+          'search_items' => __( 'Search Groups for Events and Forms' ),
+          'popular_items' => __( 'Popular Groups for Events and Forms' ),
+          'all_items' => __( 'All Groups for Events and Forms' ),
+          'edit_item' => __( 'Edit Group for Events and Forms' ),
+          'update_item' => __( 'Update Group for Events and Forms' ),
+          'add_new_item' => __( 'Add New Group for Events and Forms ' ),
           'new_item_name' => __( 'New Group Name' ),
           'separate_items_with_commas' => __( 'Separate groups with commas' ),
           'add_or_remove_items' => __( 'Add or remove groups' ),
@@ -129,7 +129,7 @@ class EMC_CustomEventsForms_Admin {
         ),
         'rewrite' => array(
           'with_front' => true,
-          'slug' => 'author/group' // Use 'author' (default WP user slug).
+          'slug' => 'author/group-events-forms' // Use 'author' (default WP user slug).
         ),
         'capabilities' => array(
           'manage_terms' => 'edit_users', // Using 'edit_users' cap to keep this simple.
@@ -177,7 +177,7 @@ class EMC_CustomEventsForms_Admin {
    */
   public function my_add_group_admin_page() {
 
-    $tax = get_taxonomy( 'group' );
+    $tax = get_taxonomy( 'group-events-forms' );
 
     add_users_page(
       esc_attr( $tax->labels->menu_name ),
@@ -211,7 +211,7 @@ class EMC_CustomEventsForms_Admin {
   public function my_manage_group_column( $display, $column, $term_id ) {
 
     if ( 'users' === $column ) {
-      $term = get_term( $term_id, 'group' );
+      $term = get_term( $term_id, 'group-events-forms' );
       echo $term->count;
     }
   }
@@ -227,14 +227,14 @@ class EMC_CustomEventsForms_Admin {
    */
   public function my_edit_user_group_section( $user ) {
     //print_r($user->allcaps);
-    $tax = get_taxonomy( 'group' );
+    $tax = get_taxonomy( 'group-events-forms' );
 
     /* Make sure the user can assign terms of the group taxonomy before proceeding. */
     if ( !current_user_can( $tax->cap->assign_terms ) )
       return;
 
     /* Get the terms of the 'group' taxonomy. */
-    $terms = get_terms( 'group', array( 'hide_empty' => false ) ); 
+    $terms = get_terms( 'group-events-forms', array( 'hide_empty' => false ) ); 
 
 		include_once plugin_dir_path( __FILE__ ). 'partials/emc-custom-events-forms-admin-display-user-groups.php';
   }
@@ -248,16 +248,16 @@ class EMC_CustomEventsForms_Admin {
    */
   public function my_save_user_group_terms( $user_id ) {
 
-    $tax = get_taxonomy( 'group' );
+    $tax = get_taxonomy( 'group-events-forms' );
 
     /* Make sure the current user can edit the user and assign terms before proceeding. */
     if ( !current_user_can( 'edit_user', $user_id ) && current_user_can( $tax->cap->assign_terms ) )
       return false;
 
-    $terms = $_POST['group'];
+    $terms = $_POST['group-events-forms'];
 
-     wp_set_object_terms( $user_id, $terms , 'group', false);
-     clean_object_term_cache( $user_id, 'group' );
+     wp_set_object_terms( $user_id, $terms , 'group-events-forms', false);
+     clean_object_term_cache( $user_id, 'group-events-forms' );
   }
   /**
    * Disables the 'group' username when someone registers.  
@@ -270,7 +270,7 @@ class EMC_CustomEventsForms_Admin {
    */
   public function my_disable_username( $username ) {
 
-    if ( 'group' === $username )
+    if ( 'group-events-forms' === $username )
       $username = '';
 
     return $username;

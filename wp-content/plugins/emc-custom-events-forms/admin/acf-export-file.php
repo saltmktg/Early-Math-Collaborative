@@ -73,7 +73,7 @@ acf_add_local_field_group(array (
         'id' => '',
       ),
       'role' => array (
-        0 => 'coach',
+        0 => 'coach-events',
       ),
       'allow_null' => 0,
       'multiple' => 0,

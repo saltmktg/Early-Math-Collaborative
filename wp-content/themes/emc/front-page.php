@@ -10,10 +10,9 @@ get_header(); ?>
 
 		<div class="primary" class="site-content">
 			<div id="content" role="main">
-
 			<?php
 			$args = array(
-				'post_type' => 'any',
+				'post_type' => 'post',
 				'tag' => 'home',
 				'nopaging' => true,
 			);

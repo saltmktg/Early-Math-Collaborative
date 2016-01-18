@@ -760,7 +760,7 @@ function emc_display_post_meta( $post_id ) {
 		( strpos( emc_get_the_format(), 'article' ) ) ? 'an' : 'a',
 		emc_get_the_format()
 	);
-	
+
 
 	if ( ! is_singular() )
 		$html .= sprintf( __( ' in the series %s', 'emc' ),
@@ -769,14 +769,14 @@ function emc_display_post_meta( $post_id ) {
 
 	if ( emc_get_the_author( $post_id ) )
 		$html .= emc_get_the_author( $post_id );
-	
+
 
 	$html .= sprintf( ' <time class="entry-date" datetime="%1$s" pubdate>%2$s</time></a>',
 		esc_attr( get_the_date( 'c' ) ),
 		esc_html( get_the_date() )
 	);
 
-	
+
 	$grades = get_the_terms( $post_id, 'emc_grade_level' );
 
 
@@ -1404,7 +1404,7 @@ function emc_the_link_excerpt() {
 	if ( ! $url ) return false; ?>
 
 	<div class="emc-link">
-		<a href="<?php echo esc_url( $url ); ?>">		  
+		<a href="<?php echo esc_url( $url ); ?>">
 			<!--<?php echo get_the_post_thumbnail( get_the_ID(), 'thumbnail' ); ?>-->
 			<div class="emc-link-content">
 				<h2 class="emc-link-title"><?php echo esc_html( $title ); ?></h2>
@@ -2060,82 +2060,82 @@ function emc_related_big_ideas(){
 /**
  * MODULES custom posts
  */
-function custom_post_Module() { 
-	register_post_type( 'module', 
+function custom_post_Module() {
+	register_post_type( 'module',
 		array('labels' => array(
-			'name' => __('Modules', 'emc'), 
-			'singular_name' => __('Module', 'emc'), 
-			'all_items' => __('All Modules', 'emc'), 
-			'add_new' => __('Add New', 'emc'), 
-			'add_new_item' => __('Add New Module', 'emc'), 
-			'edit' => __( 'Edit', 'emc' ), 
-			'edit_item' => __('Edit Module', 'emc'), 
-			'new_item' => __('New Module', 'emc'), 
-			'view_item' => __('View Module', 'emc'), 
-			'search_items' => __('Search Modules', 'emc'), 
+			'name' => __('Modules', 'emc'),
+			'singular_name' => __('Module', 'emc'),
+			'all_items' => __('All Modules', 'emc'),
+			'add_new' => __('Add New', 'emc'),
+			'add_new_item' => __('Add New Module', 'emc'),
+			'edit' => __( 'Edit', 'emc' ),
+			'edit_item' => __('Edit Module', 'emc'),
+			'new_item' => __('New Module', 'emc'),
+			'view_item' => __('View Module', 'emc'),
+			'search_items' => __('Search Modules', 'emc'),
 			'not_found' =>  __('Nothing found in the Database.', 'emc'),
-			'not_found_in_trash' => __('Nothing found in Trash', 'emc'), 
+			'not_found_in_trash' => __('Nothing found in Trash', 'emc'),
 			'parent_item_colon' => ''
-			), 
-			'description' => __( 'This is the example Module', 'emc' ), 
+			),
+			'description' => __( 'This is the example Module', 'emc' ),
 			'public' => true,
 			'publicly_queryable' => true,
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => 4, 
-			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png', 
+			'menu_position' => 4,
+			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png',
 			'rewrite'	=> array( 'slug' => 'modules', 'with_front' => false ),
-			'has_archive' => 'modules', 
+			'has_archive' => 'modules',
 			'capability_type' => 'post',
 			'hierarchical' => true,
 			'supports' => array( 'title', 'category', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'sticky')
-	 	) 
-	); 
+	 	)
+	);
 	//register_taxonomy_for_object_type('category', 'research');
 	//register_taxonomy_for_object_type('post_tag', 'research');
-} 	
+}
 	add_action( 'init', 'custom_post_Module');
-	
+
 /**
  * MEASURES custom posts
  *
  * @since 1.6
  * @author Bogdan Dragomir, bogdandragomir.com
  */
-function custom_post_Measure() { 
-	register_post_type( 'measures', 
+function custom_post_Measure() {
+	register_post_type( 'measures',
 		array('labels' => array(
-			'name' => __('Measures', 'emc'), 
-			'singular_name' => __('Measure', 'emc'), 
-			'all_items' => __('All Measures', 'emc'), 
-			'add_new' => __('Add New', 'emc'), 
-			'add_new_item' => __('Add New Measure', 'emc'), 
-			'edit' => __( 'Edit', 'emc' ), 
-			'edit_item' => __('Edit Measure', 'emc'), 
-			'new_item' => __('New Measure', 'emc'), 
-			'view_item' => __('View Measure', 'emc'), 
-			'search_items' => __('Search Measure', 'emc'), 
+			'name' => __('Measures', 'emc'),
+			'singular_name' => __('Measure', 'emc'),
+			'all_items' => __('All Measures', 'emc'),
+			'add_new' => __('Add New', 'emc'),
+			'add_new_item' => __('Add New Measure', 'emc'),
+			'edit' => __( 'Edit', 'emc' ),
+			'edit_item' => __('Edit Measure', 'emc'),
+			'new_item' => __('New Measure', 'emc'),
+			'view_item' => __('View Measure', 'emc'),
+			'search_items' => __('Search Measure', 'emc'),
 			'not_found' =>  __('Nothing found in the Database.', 'emc'),
-			'not_found_in_trash' => __('Nothing found in Trash', 'emc'), 
+			'not_found_in_trash' => __('Nothing found in Trash', 'emc'),
 			'parent_item_colon' => ''
-			), 
-			'description' => __( 'This is the example Measure', 'emc' ), 
+			),
+			'description' => __( 'This is the example Measure', 'emc' ),
 			'public' => true,
 			'publicly_queryable' => true,
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => 5, 
-			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png', 
+			'menu_position' => 5,
+			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png',
 			'rewrite'	=> array( 'slug' => 'measures', 'with_front' => false ),
-			'has_archive' => 'measures', 
+			'has_archive' => 'measures',
 			'capability_type' => 'post',
 			'hierarchical' => false,
 			'supports' => array( 'title', 'category', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'sticky')
-	 	) 
-	); 	
-} 
+	 	)
+	);
+}
 	add_action( 'init', 'custom_post_Measure');
 	/**
  * PUBLICATIONS custom posts
@@ -2143,41 +2143,41 @@ function custom_post_Measure() {
  * @since 1.6
  * @author Bogdan Dragomir, bogdandragomir.com
  */
-function custom_post_Publications() { 
-	register_post_type( 'publication', 
+function custom_post_Publications() {
+	register_post_type( 'publication',
 		array('labels' => array(
-			'name' => __('Publications', 'emc'), 
-			'singular_name' => __('Publication', 'emc'), 
-			'all_items' => __('All Researches', 'emc'), 
-			'add_new' => __('Add New', 'emc'), 
-			'add_new_item' => __('Add New Publication', 'emc'), 
-			'edit' => __( 'Edit', 'emc' ), 
-			'edit_item' => __('Edit Publication', 'emc'), 
-			'new_item' => __('New Publication', 'emc'), 
-			'view_item' => __('View Publication', 'emc'), 
-			'search_items' => __('Search Publication', 'emc'), 
+			'name' => __('Publications', 'emc'),
+			'singular_name' => __('Publication', 'emc'),
+			'all_items' => __('All Researches', 'emc'),
+			'add_new' => __('Add New', 'emc'),
+			'add_new_item' => __('Add New Publication', 'emc'),
+			'edit' => __( 'Edit', 'emc' ),
+			'edit_item' => __('Edit Publication', 'emc'),
+			'new_item' => __('New Publication', 'emc'),
+			'view_item' => __('View Publication', 'emc'),
+			'search_items' => __('Search Publication', 'emc'),
 			'not_found' =>  __('Nothing found in the Database.', 'emc'),
-			'not_found_in_trash' => __('Nothing found in Trash', 'emc'), 
+			'not_found_in_trash' => __('Nothing found in Trash', 'emc'),
 			'parent_item_colon' => ''
-			), 
-			'description' => __( 'This is the example Publication', 'emc' ), 
+			),
+			'description' => __( 'This is the example Publication', 'emc' ),
 			'public' => true,
 			'publicly_queryable' => true,
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => 5, 
-			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png', 
+			'menu_position' => 5,
+			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png',
 			'rewrite'	=> array( 'slug' => 'publications', 'with_front' => false ),
-			'has_archive' => 'publications', 
+			'has_archive' => 'publications',
 			'capability_type' => 'post',
 			'hierarchical' => true,
 			'supports' => array( 'title', 'category', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'sticky')
-	 	) 
-	); 
+	 	)
+	);
 	//register_taxonomy_for_object_type('category', 'reasearch');
-	//register_taxonomy_for_object_type('post_tag', 'reasearch');	
-} 		
+	//register_taxonomy_for_object_type('post_tag', 'reasearch');
+}
 	add_action( 'init', 'custom_post_Publications');
 /**
  * WORKING PAPERS custom posts
@@ -2185,41 +2185,41 @@ function custom_post_Publications() {
  * @since 1.6
  * @author Bogdan Dragomir, bogdandragomir.com
  */
-function custom_post_Workingpapers() { 
-	register_post_type( 'workingpapers', 
+function custom_post_Workingpapers() {
+	register_post_type( 'workingpapers',
 		array('labels' => array(
-			'name' => __('Working Papers', 'emc'), 
-			'singular_name' => __('Working Paper', 'emc'), 
-			'all_items' => __('All Working Papers', 'emc'), 
-			'add_new' => __('Add New', 'emc'), 
-			'add_new_item' => __('Add New Working Paper', 'emc'), 
-			'edit' => __( 'Edit', 'emc' ), 
-			'edit_item' => __('Edit Working Paper', 'emc'), 
-			'new_item' => __('New Working Paper', 'emc'), 
-			'view_item' => __('View Working Paper', 'emc'), 
-			'search_items' => __('Search Working Papers', 'emc'), 
+			'name' => __('Working Papers', 'emc'),
+			'singular_name' => __('Working Paper', 'emc'),
+			'all_items' => __('All Working Papers', 'emc'),
+			'add_new' => __('Add New', 'emc'),
+			'add_new_item' => __('Add New Working Paper', 'emc'),
+			'edit' => __( 'Edit', 'emc' ),
+			'edit_item' => __('Edit Working Paper', 'emc'),
+			'new_item' => __('New Working Paper', 'emc'),
+			'view_item' => __('View Working Paper', 'emc'),
+			'search_items' => __('Search Working Papers', 'emc'),
 			'not_found' =>  __('Nothing found in the Database.', 'emc'),
-			'not_found_in_trash' => __('Nothing found in Trash', 'emc'), 
+			'not_found_in_trash' => __('Nothing found in Trash', 'emc'),
 			'parent_item_colon' => ''
-			), 
-			'description' => __( 'This is the example Working Paper', 'emc' ), 
+			),
+			'description' => __( 'This is the example Working Paper', 'emc' ),
 			'public' => true,
 			'publicly_queryable' => true,
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => 5, 
-			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png', 
+			'menu_position' => 5,
+			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png',
 			'rewrite'	=> array( 'slug' => 'working-papers', 'with_front' => false ),
-			'has_archive' => 'working-papers', 
+			'has_archive' => 'working-papers',
 			'capability_type' => 'post',
 			'hierarchical' => true,
 			'supports' => array( 'title', 'category', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'sticky')
-	 	) 
-	); 
+	 	)
+	);
 	//register_taxonomy_for_object_type('category', 'reasearch');
-	//register_taxonomy_for_object_type('post_tag', 'reasearch');	
-} 		
+	//register_taxonomy_for_object_type('post_tag', 'reasearch');
+}
 	add_action( 'init', 'custom_post_Workingpapers');
 /**
  * RESEARCH PRESENTATIONS custom posts
@@ -2227,41 +2227,41 @@ function custom_post_Workingpapers() {
  * @since 1.6
  * @author Bogdan Dragomir, bogdandragomir.com
  */
-function custom_post_Researchp() { 
-	register_post_type( 'researchp', 
+function custom_post_Researchp() {
+	register_post_type( 'researchp',
 		array('labels' => array(
-			'name' => __('Research Presentations', 'emc'), 
-			'singular_name' => __('Research Presentation', 'emc'), 
-			'all_items' => __('All Research Presentations', 'emc'), 
-			'add_new' => __('Add New', 'emc'), 
-			'add_new_item' => __('Add New Research Presentation', 'emc'), 
-			'edit' => __( 'Edit', 'emc' ), 
-			'edit_item' => __('Edit Research Presentation', 'emc'), 
-			'new_item' => __('New Research Presentation', 'emc'), 
-			'view_item' => __('View Research Presentation', 'emc'), 
-			'search_items' => __('Search Research Presentations', 'emc'), 
+			'name' => __('Research Presentations', 'emc'),
+			'singular_name' => __('Research Presentation', 'emc'),
+			'all_items' => __('All Research Presentations', 'emc'),
+			'add_new' => __('Add New', 'emc'),
+			'add_new_item' => __('Add New Research Presentation', 'emc'),
+			'edit' => __( 'Edit', 'emc' ),
+			'edit_item' => __('Edit Research Presentation', 'emc'),
+			'new_item' => __('New Research Presentation', 'emc'),
+			'view_item' => __('View Research Presentation', 'emc'),
+			'search_items' => __('Search Research Presentations', 'emc'),
 			'not_found' =>  __('Nothing found in the Database.', 'emc'),
-			'not_found_in_trash' => __('Nothing found in Trash', 'emc'), 
+			'not_found_in_trash' => __('Nothing found in Trash', 'emc'),
 			'parent_item_colon' => ''
-			), 
-			'description' => __( 'This is the example Research Presentation', 'emc' ), 
+			),
+			'description' => __( 'This is the example Research Presentation', 'emc' ),
 			'public' => true,
 			'publicly_queryable' => true,
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => 5, 
-			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png', 
+			'menu_position' => 5,
+			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png',
 			'rewrite'	=> array( 'slug' => 'research-presentations', 'with_front' => false ),
-			'has_archive' => 'research-presentations', 
+			'has_archive' => 'research-presentations',
 			'capability_type' => 'post',
 			'hierarchical' => true,
 			'supports' => array( 'title', 'category', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'sticky')
-	 	) 
-	); 
+	 	)
+	);
 	//register_taxonomy_for_object_type('category', 'reasearch');
-	//register_taxonomy_for_object_type('post_tag', 'reasearch');	
-} 		
+	//register_taxonomy_for_object_type('post_tag', 'reasearch');
+}
 	add_action( 'init', 'custom_post_Researchp');
 /**
  * CONTENT PRESENTATIONS custom posts
@@ -2269,41 +2269,41 @@ function custom_post_Researchp() {
  * @since 1.6
  * @author Bogdan Dragomir, bogdandragomir.com
  */
-function custom_post_Contentp() { 
-	register_post_type( 'contentp', 
+function custom_post_Contentp() {
+	register_post_type( 'contentp',
 		array('labels' => array(
-			'name' => __('Teacher Education Presentations', 'emc'), 
-			'singular_name' => __('Teacher Education Presentation', 'emc'), 
-			'all_items' => __('All Teacher Education Presentations', 'emc'), 
-			'add_new' => __('Add New', 'emc'), 
-			'add_new_item' => __('Add New Teacher Education Presentation', 'emc'), 
-			'edit' => __( 'Edit', 'emc' ), 
-			'edit_item' => __('Edit Teacher Education Presentation', 'emc'), 
-			'new_item' => __('New Teacher Education Presentation', 'emc'), 
-			'view_item' => __('View Teacher Education Presentation', 'emc'), 
-			'search_items' => __('Search Teacher Education Presentations', 'emc'), 
+			'name' => __('Teacher Education Presentations', 'emc'),
+			'singular_name' => __('Teacher Education Presentation', 'emc'),
+			'all_items' => __('All Teacher Education Presentations', 'emc'),
+			'add_new' => __('Add New', 'emc'),
+			'add_new_item' => __('Add New Teacher Education Presentation', 'emc'),
+			'edit' => __( 'Edit', 'emc' ),
+			'edit_item' => __('Edit Teacher Education Presentation', 'emc'),
+			'new_item' => __('New Teacher Education Presentation', 'emc'),
+			'view_item' => __('View Teacher Education Presentation', 'emc'),
+			'search_items' => __('Search Teacher Education Presentations', 'emc'),
 			'not_found' =>  __('Nothing found in the Database.', 'emc'),
-			'not_found_in_trash' => __('Nothing found in Trash', 'emc'), 
+			'not_found_in_trash' => __('Nothing found in Trash', 'emc'),
 			'parent_item_colon' => ''
-			), 
-			'description' => __( 'This is the example Teacher Education Presentation', 'emc' ), 
+			),
+			'description' => __( 'This is the example Teacher Education Presentation', 'emc' ),
 			'public' => true,
 			'publicly_queryable' => true,
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => 5, 
-			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png', 
+			'menu_position' => 5,
+			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png',
 			'rewrite'	=> array( 'slug' => 'teacher-education-presentations', 'with_front' => false ),
-			'has_archive' => 'teacher-education-presentations', 
+			'has_archive' => 'teacher-education-presentations',
 			'capability_type' => 'post',
 			'hierarchical' => true,
 			'supports' => array( 'title', 'category', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'sticky')
-	 	) 
-	); 
+	 	)
+	);
 	//register_taxonomy_for_object_type('category', 'reasearch');
-	//register_taxonomy_for_object_type('post_tag', 'reasearch');	
-} 		
+	//register_taxonomy_for_object_type('post_tag', 'reasearch');
+}
 	add_action( 'init', 'custom_post_Contentp');
 /**
  * CONTENT PRESENTATIONS custom posts
@@ -2311,41 +2311,41 @@ function custom_post_Contentp() {
  * @since 1.6
  * @author Bogdan Dragomir, bogdandragomir.com
  */
-function custom_post_Conference() { 
-	register_post_type( 'conference', 
+function custom_post_Conference() {
+	register_post_type( 'conference',
 		array('labels' => array(
-			'name' => __('Conferences', 'emc'), 
-			'singular_name' => __('Conference', 'emc'), 
-			'all_items' => __('All Conferences', 'emc'), 
-			'add_new' => __('Add New', 'emc'), 
-			'add_new_item' => __('Add New Conference', 'emc'), 
-			'edit' => __( 'Edit', 'emc' ), 
-			'edit_item' => __('Edit Conference', 'emc'), 
-			'new_item' => __('New Conference', 'emc'), 
-			'view_item' => __('View Conference', 'emc'), 
-			'search_items' => __('Search Conferences', 'emc'), 
+			'name' => __('Conferences', 'emc'),
+			'singular_name' => __('Conference', 'emc'),
+			'all_items' => __('All Conferences', 'emc'),
+			'add_new' => __('Add New', 'emc'),
+			'add_new_item' => __('Add New Conference', 'emc'),
+			'edit' => __( 'Edit', 'emc' ),
+			'edit_item' => __('Edit Conference', 'emc'),
+			'new_item' => __('New Conference', 'emc'),
+			'view_item' => __('View Conference', 'emc'),
+			'search_items' => __('Search Conferences', 'emc'),
 			'not_found' =>  __('Nothing found in the Database.', 'emc'),
-			'not_found_in_trash' => __('Nothing found in Trash', 'emc'), 
+			'not_found_in_trash' => __('Nothing found in Trash', 'emc'),
 			'parent_item_colon' => ''
-			), 
-			'description' => __( 'This is the example Conference', 'emc' ), 
+			),
+			'description' => __( 'This is the example Conference', 'emc' ),
 			'public' => true,
 			'publicly_queryable' => true,
 			'exclude_from_search' => false,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_position' => 5, 
-			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png', 
+			'menu_position' => 5,
+			'menu_icon' => get_stylesheet_directory_uri() . '/img/emc.png',
 			'rewrite'	=> array( 'slug' => 'conferences', 'with_front' => false ),
-			'has_archive' => 'conferences', 
+			'has_archive' => 'conferences',
 			'capability_type' => 'post',
 			'hierarchical' => true,
 			'supports' => array( 'title', 'category', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'sticky')
-	 	) 
-	); 
+	 	)
+	);
 	//register_taxonomy_for_object_type('category', 'reasearch');
 	//register_taxonomy_for_object_type('post_tag', 'reasearch');
-} 	
+}
 	add_action( 'init', 'custom_post_Conference');
 
 /**
@@ -2360,7 +2360,7 @@ function my_custom_css() {
     body, td, textarea, input, select {
       font-family: "Lucida Grande";
       font-size: 12px;
-    } 
+    }
     #wpcontent #acf-field-citation_authors {
     height:277px;
   }
@@ -2387,7 +2387,7 @@ function wpse5742_request( $query_vars )
         $author_id = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key='nickname' AND meta_value = %s", $query_vars['author_name'] ) );
         if ( $author_id ) {
             $query_vars['author'] = $author_id;
-            unset( $query_vars['author_name'] );    
+            unset( $query_vars['author_name'] );
         }
     }
     return $query_vars;
@@ -2416,10 +2416,10 @@ function wpse5742_set_user_nicename_to_nickname( &$errors, $update, &$user )
  */
 
 function pw_load_scripts($hook) {
- 
-	// if( $hook != 'edit.php' && $hook != 'post.php' && $hook != 'post-new.php' ) 
+
+	// if( $hook != 'edit.php' && $hook != 'post.php' && $hook != 'post-new.php' )
 		// return;
- 
+
 	wp_enqueue_script( 'chosenlib-js', get_bloginfo('template_url').'/js/chosen/chosen.jquery.min.js', array('jquery'));
 	wp_enqueue_script( 'chosen-js', get_bloginfo('template_url').'/js/chosen/chosen.js', array('jquery'));
 	wp_enqueue_script( 'admin-js', get_bloginfo('template_url').'/js/admin.js', array('jquery'));
@@ -2471,7 +2471,7 @@ function filterPostQuery( $post_ids, $class ) {
 			foreach($post_tags as $tag) {
 				if (in_array($tag->slug, $exclude_tags)) {
 					unset($post_ids[$key]);
-				} 
+				}
 			}
 		}
 	}
@@ -2480,7 +2480,7 @@ function filterPostQuery( $post_ids, $class ) {
 add_filter('facetwp_filtered_post_ids', 'filterPostQuery', 10, 2);
 
 /**
- * Add FacetWP functionality to pages 
+ * Add FacetWP functionality to pages
  */
 function my_facetwp_is_main_query( $is_main_query, $query ) {
     if ( isset( $query->query_vars['facetwp'] ) ) {
@@ -2501,7 +2501,7 @@ add_filter( 'searchwp_minimum_word_length', 'my_searchwp_minimum_word_length' );
 /**
  * Add taxonomy to Swiftype faceted search
  */
-function update_swiftype_document_url( $document, $post ) {    
+function update_swiftype_document_url( $document, $post ) {
     $document['fields'][] = array( 'name' => 'emc_content_format',
                                    'type' => 'enum',
                                    'value' => wp_get_post_terms( $post->ID , 'emc_content_format', array('fields' => 'names')));
@@ -2570,28 +2570,28 @@ add_filter( 'mce_buttons_3', 'wpex_style_select' );
 //==================================================
 
 // Add new styles to the TinyMCE options
-function my_mce_before_init_insert_formats( $init_array ) {  
+function my_mce_before_init_insert_formats( $init_array ) {
   // Define the style_formats array
-  $style_formats = array(  
-    array(  
-      'title'     => 'Download PDF Button',  
-      'inline'    => 'strong', 
-      'classes'   => 'mod-i-block-btn'   
-    ),  
-    array(  
+  $style_formats = array(
+    array(
+      'title'     => 'Download PDF Button',
+      'inline'    => 'strong',
+      'classes'   => 'mod-i-block-btn'
+    ),
+    array(
       'title'     => 'Intro Block',
-      'block'			=> 'div',      
+      'block'			=> 'div',
       'classes'   => 'mod-details-block',
       'wrapper'   => true
-    ), 
-  );  
+    ),
+  );
   // Insert the array, JSON ENCODED, into 'style_formats'
-  $init_array['style_formats'] = json_encode( $style_formats );  
-  
-  return $init_array;  
-  
-} 
-// Attach callback to 'tiny_mce_before_init' 
+  $init_array['style_formats'] = json_encode( $style_formats );
+
+  return $init_array;
+
+}
+// Attach callback to 'tiny_mce_before_init'
 add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' );
 
 //==================================================
@@ -2612,8 +2612,8 @@ add_shortcode('callout_box','module_callout_box_function');
       if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') && get_user_option('rich_editing') == 'true')
            return;
 
-      //Add a callback to regiser our tinymce plugin   
-      add_filter("mce_external_plugins", "wpse72394_register_tinymce_plugin"); 
+      //Add a callback to regiser our tinymce plugin
+      add_filter("mce_external_plugins", "wpse72394_register_tinymce_plugin");
 
       // Add a callback to add our button to the TinyMCE toolbar
       add_filter('mce_buttons', 'wpse72394_add_tinymce_button');
@@ -2632,3 +2632,27 @@ function wpse72394_add_tinymce_button($buttons) {
     $buttons[] = "wpse72394_button";
     return $buttons;
 }
+
+/* SAUCAL */
+function saucal_enqueue() {
+	/* Custom Style and Scripts*/
+	wp_enqueue_script( 'emc_js', get_template_directory_uri() . '/saucal/js/emc-js.js' );
+	wp_enqueue_style( 'emc_events', get_template_directory_uri() . '/saucal/css/emc-events.css' );
+
+	/* DataTables Basics */
+	wp_enqueue_script( 'jquery.dataTables', get_template_directory_uri() . '/saucal/js/jquery.dataTables.min.js' );
+	wp_enqueue_style( 'css_DT', get_template_directory_uri() . '/saucal/css/jquery.dataTables.min.css' );
+
+	/* DataTables Extensions */
+	wp_enqueue_script( 'jq_btn_DT', get_template_directory_uri() . '/saucal/js/dataTables.buttons.min.js' );
+	wp_enqueue_script( 'jszip', get_template_directory_uri() . '/saucal/js/jszip.min.js' );
+	wp_enqueue_script( 'pdfmake', get_template_directory_uri() . '/saucal/js/pdfmake.min.js' );
+	wp_enqueue_script( 'vfs_fonts', get_template_directory_uri() . '/saucal/js/vfs_fonts.js' );
+	wp_enqueue_script( 'buttons.html5', get_template_directory_uri() . '/saucal/js/buttons.html5.min.js' );
+	wp_enqueue_style( 'btn_css_DT', get_template_directory_uri() . '/saucal/css/buttons.dataTables.min.css' );
+
+	/* Bootstrap */
+	wp_enqueue_script( 'bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', array('jquery'), true);
+	wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' );
+}
+add_action( 'wp_enqueue_scripts', 'saucal_enqueue' );

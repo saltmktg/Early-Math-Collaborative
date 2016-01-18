@@ -58,13 +58,13 @@ document.getElementById('modal-presentation').onclick = function() {
 <script>
 jQuery('.hover-tipso-tooltip').tipso({
     position: 'top',
-    background: 'rgba(10,10,10,.85)',
+    background: 'rgba(10,10,10,.8)',
     useTitle: false,
     width: false,
-    maxWidth: 280,
+    maxWidth: 320,
     tooltipHover: true,
     content: function(){
-      return 'These are Foundational Math Concepts, Common Core domains, and other useful tags. <a class="show-hide-tipso" href="http://earlymath.erikson.edu/about-early-math-programming-for-teachers-and-teacher-educators/website-for-online-learning-math/"><strong>More information &raquo;</strong></a>';
+      return 'These are Foundational Math Concepts and Common Core domains. <a class="show-hide-tipso" href="http://earlymath.erikson.edu/about-early-math-programming-for-teachers-and-teacher-educators/website-for-online-learning-math/"><strong>More information &raquo;</strong></a>';
     }
   });
 </script>

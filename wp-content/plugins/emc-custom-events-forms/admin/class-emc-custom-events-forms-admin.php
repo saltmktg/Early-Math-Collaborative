@@ -281,5 +281,6 @@ class EMC_CustomEventsForms_Admin {
    */
   public function acf_export_configs(){
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/acf-export-file.php';
+    include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/gravity-forms-ACF-field/acf-gravity_forms.php';
   }
 }

@@ -536,6 +536,9 @@ ol ul {
 .comment-form-url {
 	margin-left: 1%;
 }
+.main-navigation .menu {
+	width: 98% !important;
+}
 .attachment-thumbnail {
 	margin-left: 1.945%;
 }
@@ -1101,9 +1104,7 @@ h2.emc-link-title {
   width: 75px;
 	margin: 15px 10px 5px 20px;
 }
-h2.emc-link-title {
 
-}
 
 
 
@@ -2314,9 +2315,14 @@ hr {
 	list-style-type: none; }
 
 /* Link to Ideas page in top navigation */
-.main-navigation .top-nav-ideas-link.current-menu-item >  a,
+.main-navigation .top-nav-ideas-link.current-menu-item a {
+	color: white !important;
+}
+
+.top-nav-ideas-link {
+	background: #bad13c; }
+
 .top-nav-ideas-link a {
-	background: #bad13c;
 	color: white !important;
 }
 
@@ -2326,11 +2332,13 @@ hr {
 	padding: .3em 1.825em; }
 }
 
-.main-navigation .top-nav-ideas-link.current-menu-item >  a:hover,
-.top-nav-ideas-link a:hover {
+.top-nav-ideas-link a:hover, .top-nav-ideas-link:hover {
 	background: #0095da;
 }
 
+.top-nav-ideas-link {
+	width: 132px;
+}
 .top-nav-ideas-link:before {
   background-image: url('img/icon-book-large.png');
 	background-repeat: no-repeat;
@@ -2344,6 +2352,33 @@ hr {
 	height: 17px;
 	margin-left: 14px;
 	margin-right: 9px;
+}
+.top-nav-ideas-link:after {
+  content: '';
+  background: url('http://emc.staging.wpengine.com/wp-content/themes/emc/img/menu-arrow-sprite.png') 0 0;
+  background-size: 132px 40px;
+  position: absolute;
+  left: 0;
+  bottom: -14px;
+  width: 132px; /* Same as width of .top-nav-ideas-link */
+  height: 14px;
+  outline: none !important;
+}
+.top-nav-ideas-link.current-menu-item:after,
+.top-nav-ideas-link:hover:after {
+  content: '';
+  background: url('http://emc.staging.wpengine.com/wp-content/themes/emc/img/menu-arrow-sprite.png') 0 95px;
+  background-size: 132px 40px;
+  position: absolute;
+  left: 0;
+  bottom: -14px;
+  width: 132px; /* Same as width of .top-nav-ideas-link */
+  height: 14px;
+}
+
+li.top-nav-ideas-link,
+li.top-nav-login {
+	float: right;
 }
 
 @media (max-width: 680px) {

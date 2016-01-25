@@ -28,5 +28,26 @@
 	 * for any particular page. Though other scripts in WordPress core, other plugins, and other themes may
 	 * be doing this, we should try to minimize doing that in our own work.
 	 */
+  $( document ).ready( function( ) {
+    $('#emc-events-list').dataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    } );
+    var table = $('#emc-events-list').DataTable();
+  
+    $(tribe_ev.events).on('tribe_ev_ajaxSuccess', function(){
+      var table = $('#emc-events-list').DataTable();
+    });
+    // #myInput is a <input type="text"> element
+    $('#myInput').on( 'keyup', function () {
+        table.search( this.value ).draw();
+    } );
 
+    
+} );
 })( jQuery );

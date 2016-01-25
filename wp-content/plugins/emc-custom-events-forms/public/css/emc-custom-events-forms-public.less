@@ -4,6 +4,13 @@
 /* /colors */
 
 /* style */
+.primary.full-width{
+  width: 100%;
+}
+.events-list.tribe-bar-is-disabled #tribe-events-content-wrapper{
+  max-width: 100%!important;
+
+}
 .emc-big-btn{
 	//background: url(../img/events.png) no-repeat top left @lgreen;
 	background: @lgreen;
@@ -50,7 +57,7 @@
 }
 #emc-events-list{
 	th{
-		background: @lgreen;
+		background-color: @lgreen;
 		text-align: center;
 	}
 	td{
@@ -63,9 +70,6 @@
 	background: darken(@lgreen, 20%);
 }
 /* THe Events Calendar Fixes */
-.tribe-bar-disabled{
-	display: none;
-}
 .tribe-events-calendar td.tribe-events-present div[id*=tribe-events-daynum-], .tribe-events-button{
 	background: darken(@lgreen, 20%) !important;
 }

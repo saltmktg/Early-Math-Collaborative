@@ -75,6 +75,10 @@ class EMC_CustomEventsForms_Public {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/emc-custom-events-forms-public.css', array(), $this->version, 'all' );
 
+    wp_enqueue_style( 'css_DT', plugin_dir_url( __FILE__ ) . 'css/jquery.dataTables.min.css' );
+    wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' );
+    wp_enqueue_style( 'btn_css_DT',  plugin_dir_url( __FILE__ ) . 'css/buttons.dataTables.min.css' );
+
 	}
 
 	/**
@@ -97,7 +101,34 @@ class EMC_CustomEventsForms_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/emc-custom-events-forms-public.js', array( 'jquery' ), $this->version, false );
+    /* DataTables Basics */
+    wp_enqueue_script( 'jquery.dataTables', plugin_dir_url( __FILE__ ) . 'js/jquery.dataTables.min.js' );
+
+    /* DataTables Extensions */
+    wp_enqueue_script( 'jq_btn_DT', plugin_dir_url( __FILE__ ) . 'js/dataTables.buttons.min.js' );
+    wp_enqueue_script( 'jszip', plugin_dir_url( __FILE__ ) . 'js/jszip.min.js' );
+    wp_enqueue_script( 'pdfmake',  plugin_dir_url( __FILE__ ) . 'js/pdfmake.min.js' );
+    wp_enqueue_script( 'vfs_fonts',  plugin_dir_url( __FILE__ ) . 'js/vfs_fonts.js' );
+    wp_enqueue_script( 'buttons.html5',  plugin_dir_url( __FILE__ ) . 'js/buttons.html5.min.js' );
+    /* Bootstrap */
+    wp_enqueue_script( 'bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', array('jquery'), true);
 
 	}
 
+  /**
+   *
+   *
+   *
+   */
+  public function before_event_list(){
+		include_once plugin_dir_path( __FILE__ ). 'partials/emc-custom-events-forms-public-display-before-event-list.php';
+  }
+
+  /**
+   *
+   *
+   */
+  public function after_event_list(){
+		include_once plugin_dir_path( __FILE__ ). 'partials/emc-custom-events-forms-public-display-after-event-list.php';
+  }
 }

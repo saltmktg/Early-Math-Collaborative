@@ -1,4 +1,120 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+/* colors */
+/* /colors */
+/* style */
+.primary.full-width {
+  width: 100%;
+}
+.events-list.tribe-bar-is-disabled #tribe-events-content-wrapper {
+  max-width: 100%!important;
+}
+.emc-big-btn {
+  background: #C5E1A5;
+  border-radius: 8px;
+  border: none;
+  margin: 20px 0 40px;
+  padding: 14px;
+  width: 100%;
+}
+.emc-big-btn img {
+  display: block;
+  float: none;
+  margin: 0 auto 14px;
+  width: 50%;
+}
+.emc-big-btn span {
+  color: #fff;
+  float: none;
+  font-size: 38px;
+  line-height: 40px;
+  margin-top: 12px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #aaa;
+  text-transform: uppercase;
+  width: 100%;
+}
+.btn-normal {
+  background: #94c759;
+  color: #fff !important;
+  float: right;
+  font-size: 1.4em !important;
+  font-weight: bold !important;
+  position: relative;
+  text-transform: uppercase;
+  z-index: 2;
+}
+.btn-normal:hover,
+.btn-normal:focus {
+  color: #fff !important;
+}
+.search-input {
+  clear: both;
+  float: right;
+  margin-bottom: 10px;
+}
+#emc-events-list {
+  overflow-x: auto;
+  display: block;
+}
+#emc-events-list th {
+  background-color: #C5E1A5;
+  text-align: center;
+}
+#emc-events-list td {
+  text-align: center;
+}
+#tribe-events-content .tribe-events-calendar td.tribe-events-present.mobile-active:hover,
+.tribe-events-calendar td.tribe-events-present.mobile-active {
+  background: #94c759;
+}
+/* THe Events Calendar Fixes */
+.tribe-events-calendar td.tribe-events-present div[id*=tribe-events-daynum-],
+.tribe-events-button {
+  background: #94c759 !important;
+}
+.single-tribe_events .tribe-events-event-meta {
+  width: 100%;
+}
+/* DataTables*/
+tfoot input {
+  box-sizing: border-box;
+  padding: 3px;
+  width: 100%;
+}
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .emc-big-btn {
+    background: #c5e1a5;
+    margin: 20px 0 40px;
+    padding: 20px 14px;
+    width: 92%;
+  }
+  .emc-big-btn img {
+    display: block;
+    float: left;
+    margin: 0;
+    width: 30%;
+  }
+  .emc-big-btn span {
+    float: right;
+    font-size: 32px;
+    margin-top: 5px;
+    text-align: left;
+    width: 67%;
+  }
+  #emc-events-list {
+    overflow-x: auto;
+    display: table;
+  }
+}
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .emc-big-btn {
+    width: 80%;
+  }
+  .emc-big-btn span {
+    font-size: 36px;
+    margin-top: 12px;
+  }
+}
+/* Large devices (large desktops, 1200px and up) */
+/* /style*/

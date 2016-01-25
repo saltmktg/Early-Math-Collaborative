@@ -2633,26 +2633,4 @@ function wpse72394_add_tinymce_button($buttons) {
     return $buttons;
 }
 
-/* SAUCAL */
-function saucal_enqueue() {
-	/* Custom Style and Scripts*/
-	wp_enqueue_script( 'emc_js', get_template_directory_uri() . '/saucal/js/emc-js.js' );
-	wp_enqueue_style( 'emc_events', get_template_directory_uri() . '/saucal/css/emc-events.css' );
 
-	/* DataTables Basics */
-	wp_enqueue_script( 'jquery.dataTables', get_template_directory_uri() . '/saucal/js/jquery.dataTables.min.js' );
-	wp_enqueue_style( 'css_DT', get_template_directory_uri() . '/saucal/css/jquery.dataTables.min.css' );
-
-	/* DataTables Extensions */
-	wp_enqueue_script( 'jq_btn_DT', get_template_directory_uri() . '/saucal/js/dataTables.buttons.min.js' );
-	wp_enqueue_script( 'jszip', get_template_directory_uri() . '/saucal/js/jszip.min.js' );
-	wp_enqueue_script( 'pdfmake', get_template_directory_uri() . '/saucal/js/pdfmake.min.js' );
-	wp_enqueue_script( 'vfs_fonts', get_template_directory_uri() . '/saucal/js/vfs_fonts.js' );
-	wp_enqueue_script( 'buttons.html5', get_template_directory_uri() . '/saucal/js/buttons.html5.min.js' );
-	wp_enqueue_style( 'btn_css_DT', get_template_directory_uri() . '/saucal/css/buttons.dataTables.min.css' );
-
-	/* Bootstrap */
-	wp_enqueue_script( 'bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', array('jquery'), true);
-	wp_enqueue_style( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' );
-}
-add_action( 'wp_enqueue_scripts', 'saucal_enqueue' );

@@ -7,6 +7,16 @@
 .events-list.tribe-bar-is-disabled #tribe-events-content-wrapper {
   max-width: 100%!important;
 }
+.tribe-theme-emc label {
+  display: inline-block;
+}
+.tribe-theme-emc .entry-content div {
+  margin-bottom: 0;
+}
+.tribe-theme-emc #tribe-community-events .events-community-post-title input,
+.tribe-theme-emc #tribe-community-events .events-community-post-content textarea {
+  width: 100%;
+}
 .emc-big-btn {
   background: #C5E1A5;
   border-radius: 8px;

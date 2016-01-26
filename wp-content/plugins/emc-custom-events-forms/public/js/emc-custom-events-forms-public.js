@@ -39,10 +39,11 @@
         ]
     } );
     var table = $('#emc-events-list').DataTable();
-  
-    $(tribe_ev.events).on('tribe_ev_ajaxSuccess', function(){
-      var table = $('#emc-events-list').DataTable();
-    });
+    if( typeof tribe_ev !== 'undefined' ){  
+      $(tribe_ev.events).on('tribe_ev_ajaxSuccess', function(){
+        var table = $('#emc-events-list').DataTable();
+      });
+    }
     // #myInput is a <input type="text"> element
     $('#myInput').on( 'keyup', function () {
         table.search( this.value ).draw();

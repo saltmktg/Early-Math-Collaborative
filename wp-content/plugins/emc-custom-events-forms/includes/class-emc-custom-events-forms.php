@@ -189,9 +189,11 @@ class EMC_CustomEventsForms {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+    $this->loader->add_action( 'tribe_events_before_loop', $plugin_public, 'events_header' );
     $this->loader->add_action( 'tribe_events_before_loop', $plugin_public, 'before_event_list' );
+    $this->loader->add_action( 'tribe_events_after_header', $plugin_public, 'event_header' );
     $this->loader->add_action( 'tribe_events_after_loop', $plugin_public, 'after_event_list' );
-
+    add_filter( 'tribe-events-bar-should-show', '__return_false' );
 	}
 
 	/**

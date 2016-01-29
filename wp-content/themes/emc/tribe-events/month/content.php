@@ -15,7 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div id="tribe-events-content" class="tribe-events-month">
-	<a href="<?php echo get_site_url();?>/events-list" class="btn btn-normal">Events List</a>
 	<!-- Month Title -->
 	<?php do_action( 'tribe_events_before_the_title' ) ?>
 	<h2 class="tribe-events-page-title"><?php tribe_events_title() ?></h2>

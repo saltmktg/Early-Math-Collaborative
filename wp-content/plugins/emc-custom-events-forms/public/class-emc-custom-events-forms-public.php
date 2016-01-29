@@ -120,9 +120,19 @@ class EMC_CustomEventsForms_Public {
    *
    *
    */
+  public function event_header(){
+		include_once plugin_dir_path( __FILE__ ). 'partials/emc-custom-events-forms-public-display-event-header.php';
+  }
+
+  /**
+   *
+   *
+   *
+   */
   public function before_event_list(){
 		include_once plugin_dir_path( __FILE__ ). 'partials/emc-custom-events-forms-public-display-before-event-list.php';
   }
+
 
   /**
    *

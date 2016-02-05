@@ -39,7 +39,7 @@
         ]
     } );
     var table = $('#emc-events-list').DataTable();
-    if( typeof tribe_ev !== 'undefined' ){  
+    if( typeof tribe_ev !== 'undefined' ){
       $(tribe_ev.events).on('tribe_ev_ajaxSuccess', function(){
         var table = $('#emc-events-list').DataTable();
       });
@@ -49,6 +49,12 @@
         table.search( this.value ).draw();
     } );
 
-    
+    $('.saved_organizer').on('change', '#saved_organizer', function () {
+    	var coach_id = $(this).val();
+
+    	$('.coach-data').hide().filter('.coach-id-'+coach_id).fadeIn()
+    });
+
+
 } );
 })( jQuery );

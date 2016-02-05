@@ -32,12 +32,31 @@ if ( ! isset( $event ) ) {
 				<h4> <label class="<?php echo tribe_community_events_field_has_error( 'organizer' ) ? 'error' : ''; ?>">Assigned Coach</label> </h4>
 			</td><!-- .tribe_sectionheader -->
 		</tr> </thead>
+		<tbody>
+			<?php
+			// The organizer meta box will render everything within a <tbody>
+			$users = get_users( array( 'role' => 'coach-events', 'orderby' => 'display_name' ) );
+			?><script type="text/template" id="tmpl-tribe-select-organizer"></script><?php
+			?>
+			<tr class="saved_organizer">
+				<td><label>Coach:</label></td>
+				<td><?php
+				echo '<select class="chosen organizer-dropdown" name="organizer[OrganizerID][]" id="saved_organizer">';
+				echo '<option value="">Select a Coach:</option>';
+				foreach ( $users as $user ) {
+					printf( '<option value="%d">%s</option>', $user->ID, $user->data->display_name );
+				}
+				echo '</select>';
+				?>
+				</td>
+			</tr>
 
-		<?php
-		// The organizer meta box will render everything within a <tbody>
-		$organizer_meta_box = new Tribe__Events__Admin__Organizer_Chooser_Meta_Box( $event );
-		$organizer_meta_box->render();
-		?>
+			<?php
+			foreach ( $users as $user ) {
+				printf( '<tr class="venue coach-data coach-id-%d"><td><label>Email:</label></td><td>%s</td></tr>', $user->ID, $user->data->user_email );
+			}
+			?>
+		</tbody>
 
 	</table> <!-- #event_organizer -->
 

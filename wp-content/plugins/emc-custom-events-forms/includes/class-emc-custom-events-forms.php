@@ -172,7 +172,7 @@ class EMC_CustomEventsForms {
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_admin, 'acf_export_configs' );
 
-  
+
 	}
 
 	/**

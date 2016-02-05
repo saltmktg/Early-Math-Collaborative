@@ -96,7 +96,7 @@ var recaptcha_options = {"lang":"en"};
 		<h1 class="assistive-text"><?php _e( 'Menu', 'emc' ); ?></h1>
 		<div class="assistive-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'emc' ); ?>"><?php _e( 'Skip to content', 'emc' ); ?></a></div>
 
-		<?php wp_nav_menu(); ?>
+		<?php wp_nav_menu(); ?>		
 	</nav>
 
 	<?php emc_wooslider(); ?>

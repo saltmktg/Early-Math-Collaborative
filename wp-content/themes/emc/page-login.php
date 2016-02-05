@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Login
+ * Template Name: Login Page
  *
  * This template displays the 'Project Login' form
  *
@@ -16,6 +16,8 @@ get_header(); ?>
 
     <div class="primary" class="site-content">
       <div id="content" role="main">
+
+      <a href="<?php echo wp_login_url(get_permalink()); ?>" title="Login">Login to view</a>
 
         <div class="login-wrap">
           <?php the_widget( 'emc_widgets_login'); ?> 

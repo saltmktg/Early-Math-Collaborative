@@ -35,7 +35,7 @@ if ( ! isset( $event ) ) {
 
 		<?php
 		// The organizer meta box will render everything within a <tbody>
-		$organizer_meta_box = new EMC_Tribe__Events__Admin__Organizer_Chooser_Meta_Box( $event );
+		$organizer_meta_box = new Tribe__Events__Admin__Organizer_Chooser_Meta_Box( $event );
 		$organizer_meta_box->render();
 		?>
 

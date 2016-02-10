@@ -114,17 +114,6 @@ $website = tribe_get_event_website_link();
 
 		<?php endif ?>
 		<?php
-		// Aditional Information
-		?>
-			<dt> Classroom Number</dt>
-			<dd>
-				101
-			</dd>
-			<dt> Another field</dt>
-			<dd>
-				Example
-			</dd>
-		<?php
 		// Event Cost
 		if ( ! empty( $cost ) ) : ?>
 

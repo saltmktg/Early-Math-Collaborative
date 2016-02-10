@@ -11,9 +11,11 @@
 $organizer_ids = tribe_get_organizer_ids();
 $multiple = count( $organizer_ids ) > 1;
 
+$organizer = get_userdata( $organizer_ids[0] );
+
 $phone = tribe_get_organizer_phone();
-$email = tribe_get_organizer_email();
-$website = tribe_get_organizer_website_link();
+$email = $organizer->user_email;
+$website = $organizer->user_url;
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
@@ -72,16 +74,36 @@ $website = tribe_get_organizer_website_link();
 		?>
 		<?php
 		// Event Forms
+		//
+		// Call related Gravity Forms here!!!
+		$customFields = tribe_get_option( 'custom-fields', false );
+		if ( is_array( $customFields ) ) {
+			foreach ( $customFields as $field ) {
+				if ( strpos( $field['label'], 'Report' ) ) {
+					$forms = get_post_meta( get_the_id(), $field['name'], true );
+					if( $forms ):
+						?>
+						<dt>Coach Report:</dt>
+						<?php
+						$forms = explode( '|', $forms );
+						$forms_list = array();
+						foreach ( (array)$forms as $form ) :
+							$form_meta = RGFormsModel::get_form_meta( str_replace( 'gf_', '', $form ) );
+							?>
+							<dd>
+								<?php echo do_shortcode( sprintf( '[formlightbox_call title="%1$s" class="form%2$d"]%1$s[/formlightbox_call]', $form_meta['title'], $form_meta['id'] ) ); ?>
+								<?php echo do_shortcode( sprintf( '[formlightbox_obj id="form%1$d" style="" onload="false"][gravityform id="%1$d"][/formlightbox_obj]', $form_meta['id'] ) ); ?>
+							</dd>
+							<?php
+						endforeach;
+					endif;
+				}
+			}
+		}
 		?>
-			<dt>Coach Report:</dt>
-			<dd>
-				<?php echo do_shortcode( '[formlightbox_call title="Test 1" class="1452187370596"]Planning[/formlightbox_call]' ); ?>
-				<?php echo do_shortcode( '[formlightbox_obj id="1452187370596" style="" onload="false"][gravityform id="1"][/formlightbox_obj]' ); ?>
-			</dd>
-			<dd> Observation </dd>
-			<dd> Reflection </dd>
 	</dl>
 </div>
+<?php /*
 <div class="tribe-events-meta-group">
 	<h3 class="tribe-events-single-section-title">Participants</h3>
 	<dl>
@@ -90,15 +112,4 @@ $website = tribe_get_organizer_website_link();
 		<dd class="tribe-participants">Teacher Two</dd>
 		<dd class="tribe-participants">Someone</dd>
 	</dl>
-</div>
-
-<?php
-/*
-[formlightbox_call title="Gravity Form" class="1"]Gravity Form[/formlightbox_call]
-[formlightbox_obj id="1" style="padding: 10px;"][gravityform id="1"][/formlightbox_obj]
-
-[formlightbox_call title="Test 1" class="1452187370596"]Test[/formlightbox_call]
-[formlightbox_obj id="1452187370596" style="" onload="false"][gravityform id="2"][/formlightbox_obj]
-
-*/
-?>
+</div> */ ?>

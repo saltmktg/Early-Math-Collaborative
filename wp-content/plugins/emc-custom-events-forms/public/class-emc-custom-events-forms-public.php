@@ -131,4 +131,14 @@ class EMC_CustomEventsForms_Public {
   public function after_event_list(){
 		include_once plugin_dir_path( __FILE__ ). 'partials/emc-custom-events-forms-public-display-after-event-list.php';
   }
+
+  public function get_custom_fields( $custom_fields ) {
+  	foreach ( $custom_fields as $key => $field ) {
+  		if ( strpos( $key, 'Report' ) ) {
+  			unset( $custom_fields[$key] );
+  		}
+  	}
+
+  	return $custom_fields;
+  }
 }

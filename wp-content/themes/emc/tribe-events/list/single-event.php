@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 } ?>
 <td>
-<?php $coach_ids = get_post_meta( get_the_id(), 'event_coach'); 
+<?php $coach_ids = get_post_meta( get_the_id(), 'event_coach');
 if( count($coach_ids) > 0 ) {
   foreach($coach_ids as $id){
     $user = get_user_by('id',$id);
@@ -22,7 +22,7 @@ if( count($coach_ids) > 0 ) {
   echo 'No Coach assigned';
 }
 
-?> 
+?>
 </td>
 <td>
   <?php
@@ -51,25 +51,29 @@ if( count($coach_ids) > 0 ) {
 </td>
 <td>
 <?php
+$customFields = tribe_get_option( 'custom-fields', false );
+if ( is_array( $customFields ) ) {
+	foreach ( $customFields as $field ) {
+		if ( strpos( $field['label'], 'Report' ) ) {
+			$forms = get_post_meta( get_the_id(), $field['name'], true );
+			if( $forms ):
+				$forms = explode( '|', $forms );
+				$forms_list = array();
+				foreach ( (array)$forms as $form ) {
+					$form_meta = RGFormsModel::get_form_meta( str_replace( 'gf_', '', $form ) );
+					$forms_list[] = $form_meta['title'];
+				}
 
-if( have_rows('event_form') ):
-  $output = '';
-  // loop through the rows of data
-    while ( have_rows('event_form') ) : the_row();
+				echo implode( ', ', $forms_list );
+			else :
 
-        // display a sub field value
-        $form = get_sub_field('form');
-        $output .= $form['title'];
-        $output .= '( #'. $form['id'] . ' ), ';
+			    echo 'No Forms assigned';
 
-    endwhile;
-    echo substr($output, 0, -2);
-else :
-
-    echo 'No Forms assigned';
-
-endif;
-?> 
+			endif;
+		}
+	}
+}
+?>
 
 
 </td>

@@ -101,8 +101,8 @@ class EMC_CustomEventsForms_Admin {
 	}
 
   /**
-   * Registers the 'Group' taxonomy for users.  
-   * This is a taxonomy for the 'user' object type rather than a 
+   * Registers the 'Group' taxonomy for users.
+   * This is a taxonomy for the 'user' object type rather than a
    * post being the object type.
    *
    */
@@ -143,10 +143,10 @@ class EMC_CustomEventsForms_Admin {
   }
 
   /**
-   * Function for updating the 'group' taxonomy count.  
-   * What this does is update the count of a specific term 
-   * by the number of users that have been given the term. 
-   * We're not doing any checks for users specifically here. 
+   * Function for updating the 'group' taxonomy count.
+   * What this does is update the count of a specific term
+   * by the number of users that have been given the term.
+   * We're not doing any checks for users specifically here.
    * We're just updating the count with no specifics for simplicity.
    *
    * See the _update_post_term_count() function in WordPress for more info.
@@ -168,11 +168,11 @@ class EMC_CustomEventsForms_Admin {
   }
 
   /**
-   * Creates the admin page for the 'group' taxonomy under the 'Users' menu.  
-   * It works the same as any other taxonomy page in the admin.  
-   * However, this is kind of hacky and is meant as a quick solution.  When 
-   * clicking on the menu item in the admin, WordPress' menu system thinks you're 
-   * viewing something under 'Posts' 
+   * Creates the admin page for the 'group' taxonomy under the 'Users' menu.
+   * It works the same as any other taxonomy page in the admin.
+   * However, this is kind of hacky and is meant as a quick solution.  When
+   * clicking on the menu item in the admin, WordPress' menu system thinks you're
+   * viewing something under 'Posts'
    * instead of 'Users'.  We really need WP core support for this.
    */
   public function my_add_group_admin_page() {
@@ -217,10 +217,10 @@ class EMC_CustomEventsForms_Admin {
   }
 
   /**
-   * Adds an additional settings section on the edit user/profile page in the admin. 
-   * This section allows users to 
-   * select a group from a checkbox of terms from the group taxonomy.  
-   * This is just one example of 
+   * Adds an additional settings section on the edit user/profile page in the admin.
+   * This section allows users to
+   * select a group from a checkbox of terms from the group taxonomy.
+   * This is just one example of
    * many ways this can be handled.
    *
    * @param object $user The user object currently being edited.
@@ -234,14 +234,14 @@ class EMC_CustomEventsForms_Admin {
       return;
 
     /* Get the terms of the 'group' taxonomy. */
-    $terms = get_terms( 'group-events-forms', array( 'hide_empty' => false ) ); 
+    $terms = get_terms( 'group-events-forms', array( 'hide_empty' => false ) );
 
 		include_once plugin_dir_path( __FILE__ ). 'partials/emc-custom-events-forms-admin-display-user-groups.php';
   }
 
   /**
-   * Saves the term selected on the edit user/profile page in the admin. 
-   * This function is triggered when the page 
+   * Saves the term selected on the edit user/profile page in the admin.
+   * This function is triggered when the page
    * is updated.  We just grab the posted data and use wp_set_object_terms() to save it.
    *
    * @param int $user_id The ID of the user to save the terms for.
@@ -260,10 +260,10 @@ class EMC_CustomEventsForms_Admin {
      clean_object_term_cache( $user_id, 'group-events-forms' );
   }
   /**
-   * Disables the 'group' username when someone registers.  
-   * This is to avoid any conflicts with the custom 
-   * 'author/group' slug used for the 'rewrite' argument when registering the 
-   * 'group' taxonomy.  This  will cause WordPress to output an error that the 
+   * Disables the 'group' username when someone registers.
+   * This is to avoid any conflicts with the custom
+   * 'author/group' slug used for the 'rewrite' argument when registering the
+   * 'group' taxonomy.  This  will cause WordPress to output an error that the
    * username is invalid if it matches 'group'.
    *
    * @param string $username The username of the user before registration is complete.
@@ -276,11 +276,15 @@ class EMC_CustomEventsForms_Admin {
     return $username;
   }
 
-  /**
-   * Includes the export code from ACF
-   */
-  public function acf_export_configs(){
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/acf-export-file.php';
-    include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/gravity-forms-ACF-field/acf-gravity_forms.php';
+  public function events_meta_box_template( $template ) {
+    $template = plugin_dir_path( __FILE__ ). 'partials/emc-custom-events-forms-admin-events-meta-box.php';
+
+    return $template;
+  }
+
+  public function events_event_meta_box_template( $template ) {
+    $template = plugin_dir_path( __FILE__ ). 'partials/emc-custom-events-forms-admin-events-event-meta-box.php';
+
+    return $template;
   }
 }

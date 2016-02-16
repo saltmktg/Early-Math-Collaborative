@@ -76,27 +76,39 @@ $website = $organizer->user_url;
 		// Event Forms
 		//
 		// Call related Gravity Forms here!!!
-		$customFields = tribe_get_option( 'custom-fields', false );
-		if ( is_array( $customFields ) ) {
-			foreach ( $customFields as $field ) {
-				if ( strpos( $field['label'], 'Report' ) ) {
-					$forms = get_post_meta( get_the_id(), $field['name'], true );
-					if( $forms ):
-						?>
-						<dt>Coach Report:</dt>
-						<?php
-						$forms = explode( '|', $forms );
-						$forms_list = array();
-						foreach ( (array)$forms as $form ) :
-							$form_meta = RGFormsModel::get_form_meta( str_replace( 'gf_', '', $form ) );
+		global $wp_roles;
+		$current_user = wp_get_current_user();
+		$roles = $current_user->roles;
+		$role = array_shift($roles);
+		if ( ( is_user_logged_in() && ( 'administrator' == $role || 'coach-events' == $role ) ) || ! is_user_logged_in() ) {
+			$customFields = tribe_get_option( 'custom-fields', false );
+			if ( is_array( $customFields ) ) {
+				foreach ( $customFields as $field ) {
+					if ( strpos( $field['label'], 'Report' ) ) {
+						$forms = get_post_meta( get_the_id(), $field['name'], true );
+						if( $forms ):
 							?>
-							<dd>
-								<?php echo do_shortcode( sprintf( '[formlightbox_call title="%1$s" class="form%2$d"]%1$s[/formlightbox_call]', $form_meta['title'], $form_meta['id'] ) ); ?>
-								<?php echo do_shortcode( sprintf( '[formlightbox_obj id="form%1$d" style="" onload="false"][gravityform id="%1$d"][/formlightbox_obj]', $form_meta['id'] ) ); ?>
-							</dd>
+							<dt>Coach Report:</dt>
 							<?php
-						endforeach;
-					endif;
+							$forms = explode( '|', $forms );
+							$forms_list = array();
+							foreach ( (array)$forms as $form ) :
+								$form_meta = RGFormsModel::get_form_meta( str_replace( 'gf_', '', $form ) );
+								if ( is_user_logged_in() ) :
+									?>
+									<dd>
+										<?php echo do_shortcode( sprintf( '[formlightbox_call title="%1$s" class="form%2$d"]%1$s[/formlightbox_call]', $form_meta['title'], $form_meta['id'] ) ); ?>
+										<?php echo do_shortcode( sprintf( '[formlightbox_obj id="form%1$d" style="" onload="false"][gravityform id="%1$d"][/formlightbox_obj]', $form_meta['id'] ) ); ?>
+									</dd>
+									<?php
+								else:
+									?>
+									<dd><a href="<?php echo wp_login_url( get_permalink() ); ?>"><?php echo $form_meta['title']; ?></a></dd>
+									<?php
+								endif;
+							endforeach;
+						endif;
+					}
 				}
 			}
 		}

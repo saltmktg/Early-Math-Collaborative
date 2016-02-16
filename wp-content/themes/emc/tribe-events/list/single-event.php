@@ -12,16 +12,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 } ?>
 <td>
-<?php $coach_ids = get_post_meta( get_the_id(), 'event_coach');
-if( count($coach_ids) > 0 ) {
-  foreach($coach_ids as $id){
-    $user = get_user_by('id',$id);
-    echo  $user->first_name . ' ' . $user->last_name;
-  }
-} else {
-  echo 'No Coach assigned';
-}
+<?php
+$organizer_ids = tribe_get_organizer_ids();
+$multiple = count( $organizer_ids ) > 1;
 
+$organizer = get_userdata( $organizer_ids[0] );
+if ( $organizer ) :
+	?>
+	<dd class="tribe-organizer">
+		<?php echo $organizer->data->display_name; ?>
+	</dd>
+	<?php
+else :
+	echo 'No Coach assigned';
+endif;
 ?>
 </td>
 <td>

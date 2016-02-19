@@ -29,35 +29,67 @@ if ( ! isset( $event ) ) {
 
 		<thead> <tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4> <label class="<?php echo tribe_community_events_field_has_error( 'organizer' ) ? 'error' : ''; ?>">Assigned Coach</label> </h4>
+				<h4> <label class="<?php echo tribe_community_events_field_has_error( 'organizer' ) ? 'error' : ''; ?>">Assigned Team</label> </h4>
 			</td><!-- .tribe_sectionheader -->
 		</tr> </thead>
 		<tbody>
 			<?php
 			// The organizer meta box will render everything within a <tbody>
-			$users = get_users( array( 'role' => 'coach-events', 'orderby' => 'display_name' ) );
+			$organizer_ids = tribe_get_organizer_ids();
+			$coaches = get_users( array( 'role' => 'coach-events', 'orderby' => 'display_name' ) );
+			$teachers = get_users( array( 'role' => 'teacher-events', 'orderby' => 'display_name' ) );
+			$groups = get_terms( 'group-events-forms', array( 'hide_empty' => false ) );
 			?><script type="text/template" id="tmpl-tribe-select-organizer"></script><?php
 			?>
 			<tr class="saved_organizer">
-				<td><label>Coach:</label></td>
+				<td><label>Coaches:</label></td>
 				<td><?php
-				echo '<select class="chosen organizer-dropdown" name="organizer[OrganizerID][]" id="saved_organizer">';
-				echo '<option value="">Select a Coach:</option>';
-				foreach ( $users as $user ) {
-					printf( '<option value="%d">%s</option>', $user->ID, $user->data->display_name );
+				echo '<select class="chosen organizer-dropdown" multiple name="organizer[OrganizerID][]" id="saved_organizer">';
+				foreach ( $coaches as $user ) {
+					if ( in_array( $user->ID, $organizer_ids ) ) {
+						printf( '<option value="%d" selected="selected">%s</option>', $user->ID, $user->data->display_name );
+					} else {
+						printf( '<option value="%d">%s</option>', $user->ID, $user->data->display_name );
+					}
 				}
 				echo '</select>';
 				?>
 				</td>
 			</tr>
-
-			<?php
-			foreach ( $users as $user ) {
-				printf( '<tr class="venue coach-data coach-id-%d"><td><label>Email:</label></td><td>%s</td></tr>', $user->ID, $user->data->user_email );
-			}
-			?>
+			<tr class="saved_organizer">
+				<td><label>Teachers:</label></td>
+				<td><?php
+				echo '<select class="chosen organizer-dropdown" multiple name="organizer[OrganizerID][]" id="saved_organizer">';
+				foreach ( $teachers as $user ) {
+					if ( in_array( $user->ID, $organizer_ids ) ) {
+						printf( '<option value="%d" selected="selected">%s</option>', $user->ID, $user->data->display_name );
+					} else {
+						printf( '<option value="%d">%s</option>', $user->ID, $user->data->display_name );
+					}
+				}
+				echo '</select>';
+				?>
+				</td>
+			</tr>
+			<tr class="saved_organizer">
+				<td><label>Groups:</label></td>
+				<td><?php
+				echo '<select class="chosen organizer-dropdown" multiple name="organizer[OrganizerID][]" id="saved_organizer">';
+				foreach ( $groups as $group ) {
+					if ( in_array( $group->term_id, $organizer_ids ) ) {
+						printf( '<option value="group_%d" selected="selected">%s</option>', $group->term_id, $group->name );
+					} else {
+						printf( '<option value="group_%d">%s</option>', $group->term_id, $group->name );
+					}
+				}
+				echo '</select>';
+				?>
+				</td>
+			</tr>
 		</tbody>
-
+		<?php
+		include Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/new-organizer-meta-section.php';
+		?>
 	</table> <!-- #event_organizer -->
 
 </div>

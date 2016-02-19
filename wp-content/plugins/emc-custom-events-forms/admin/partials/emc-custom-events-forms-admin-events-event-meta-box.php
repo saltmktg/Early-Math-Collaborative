@@ -36,12 +36,12 @@ $events_label_singular = tribe_get_event_label_singular();
 				<?php elseif ( 'checkbox' === $customField['type'] ):
 					if ( 'Gravity Forms' == $customField['values'] ) {
 						$forms = RGFormsModel::get_forms();
+						$values = explode( '|', $val );
 						foreach( $forms as $form ) {
-							$values = explode( '|', $val );
 							?>
 							<div>
 								<label>
-									<input type="checkbox" value="<?php echo esc_attr( 'gf_' . $form->id ); ?>" <?php checked( in_array( esc_attr( $form->id ), $values ) ) ?> name="<?php echo esc_html( stripslashes( $customField['name'] ) ); ?>[]"/>
+									<input type="checkbox" value="<?php echo esc_attr( 'gf_' . $form->id ); ?>" <?php checked( in_array( esc_attr( 'gf_' . $form->id ), $values ) ) ?> name="<?php echo esc_html( stripslashes( $customField['name'] ) ); ?>[]"/>
 									<?php echo esc_html( stripslashes( $form->title ) ); ?>
 								</label>
 							</div>

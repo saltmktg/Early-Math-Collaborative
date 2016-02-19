@@ -161,12 +161,15 @@ class EMC_CustomEventsForms {
 		/* Create custom columns for the manage group page. */
 		$this->loader->add_filter( 'manage_edit-group_columns', $plugin_admin,'my_manage_group_user_column' );
 
+		/* Create custom columns for the manage group page. */
+		$this->loader->add_action( 'edited_group-events-forms', $plugin_admin,'my_update_group_count', 10, 2 );
+
 		/* Customize the output of the custom column on the manage groups page. */
 		$this->loader->add_action( 'manage_group_custom_column', $plugin_admin, 'my_manage_group_column', 10, 3 );
 
 		/* Add section to the edit user page in the admin to select group. */
-		$this->loader->add_action( 'show_user_profile', $plugin_admin, 'my_edit_user_group_section' );
-		$this->loader->add_action( 'edit_user_profile', $plugin_admin, 'my_edit_user_group_section' );
+		//$this->loader->add_action( 'show_user_profile', $plugin_admin, 'my_edit_user_group_section' );
+		//$this->loader->add_action( 'edit_user_profile', $plugin_admin, 'my_edit_user_group_section' );
 
 		/* Update the group terms when the edit user page is updated. */
 		$this->loader->add_action( 'personal_options_update', $plugin_admin, 'my_save_user_group_terms' );

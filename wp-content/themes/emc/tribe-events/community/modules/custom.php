@@ -19,6 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $customFields = tribe_get_option( 'custom-fields' );
 
+foreach ( $customFields as $key => $field ) {
+	if ( 'Gravity Forms' == $field['values'] ) {
+		unset( $customFields[$key] );
+	}
+}
+
 if ( empty( $customFields ) || ! is_array( $customFields ) ) {
 	return;
 }
@@ -89,7 +95,7 @@ if ( empty( $customFields ) || ! is_array( $customFields ) ) {
 									?>
 									<div>
 										<label>
-											<input type="checkbox" value="<?php echo esc_attr( 'gf_' . $form->id ); ?>" <?php checked( in_array( esc_attr( $form->id ), $values ) ) ?> name="<?php echo esc_html( stripslashes( $customField['name'] ) ); ?>[]"/>
+											<input type="checkbox" value="<?php echo esc_attr( 'gf_' . $form->id ); ?>" <?php checked( in_array( esc_attr( 'gf_' . $form->id ), $values ) ) ?> name="<?php echo esc_html( stripslashes( $customField['name'] ) ); ?>[]"/>
 											<?php echo esc_html( stripslashes( $form->title ) ); ?>
 										</label>
 									</div>

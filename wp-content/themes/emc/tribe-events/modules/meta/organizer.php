@@ -8,30 +8,30 @@
  * @package TribeEventsCalendar
  */
 
-$organizer_ids = tribe_get_organizer_ids();
+$coaches = get_users( array( 'role' => 'coach-events', 'fields' => 'ids' ) );
+$organizer_ids = array_intersect( tribe_get_organizer_ids(), $coaches );
 $multiple = count( $organizer_ids ) > 1;
-
-$organizer = get_userdata( $organizer_ids[0] );
-
-$phone = tribe_get_organizer_phone();
-$email = $organizer->user_email;
-$website = $organizer->user_url;
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
-	<h3 class="tribe-events-single-section-title">Assigned Coach</h3>
+	<h3 class="tribe-events-single-section-title">Assigned Coaches</h3>
 	<dl>
 		<?php
 		do_action( 'tribe_events_single_meta_organizer_section_start' );
 
-		foreach ( $organizer_ids as $organizer ) {
-			if ( ! $organizer ) {
+		foreach ( $organizer_ids as $organizer_id ) {
+			$organizer = get_userdata( $organizer_id );
+
+			if ( ! $organizer || 'coach-events' != $organizer->roles[0] ) {
 				continue;
 			}
 
+			$phone = tribe_get_organizer_phone();
+			$email = $organizer->user_email;
+			$website = $organizer->user_url;
 			?>
 			<dd class="tribe-organizer">
-				<?php echo tribe_get_organizer( $organizer ) ?>
+				<h4><?php echo $organizer->display_name; ?></h4>
 			</dd>
 			<?php
 		}
@@ -81,36 +81,34 @@ $website = $organizer->user_url;
 		$roles = $current_user->roles;
 		$role = array_shift($roles);
 		if ( ( is_user_logged_in() && ( 'administrator' == $role || 'coach-events' == $role ) ) || ! is_user_logged_in() ) {
-			$customFields = tribe_get_option( 'custom-fields', false );
-			if ( is_array( $customFields ) ) {
-				foreach ( $customFields as $field ) {
-					if ( strpos( $field['label'], 'Report' ) ) {
-						$forms = get_post_meta( get_the_id(), $field['name'], true );
-						if( $forms ):
-							?>
-							<dt>Coach Report:</dt>
-							<?php
-							$forms = explode( '|', $forms );
-							$forms_list = array();
-							foreach ( (array)$forms as $form ) :
-								$form_meta = RGFormsModel::get_form_meta( str_replace( 'gf_', '', $form ) );
-								if ( is_user_logged_in() ) :
-									?>
-									<dd>
-										<?php echo do_shortcode( sprintf( '[formlightbox_call title="%1$s" class="form%2$d"]%1$s[/formlightbox_call]', $form_meta['title'], $form_meta['id'] ) ); ?>
-										<?php echo do_shortcode( sprintf( '[formlightbox_obj id="form%1$d" style="" onload="false"][gravityform id="%1$d"][/formlightbox_obj]', $form_meta['id'] ) ); ?>
-									</dd>
-									<?php
-								else:
-									?>
-									<dd><a href="<?php echo wp_login_url( get_permalink() ); ?>"><?php echo $form_meta['title']; ?></a></dd>
-									<?php
-								endif;
-							endforeach;
-						endif;
-					}
+			$terms = wp_get_post_terms( get_the_ID(), 'tribe_events_cat' );
+			$forms = array();
+			foreach ( $terms as $term ) {
+				$term_forms = get_field( 'related_forms', 'tribe_events_cat_' . $term->term_id );
+				if ( $term_forms ) {
+					$forms = array_merge( $forms, $term_forms );
 				}
 			}
+			if( $forms ):
+				?>
+				<dt>Coach Report:</dt>
+				<?php
+				foreach ( (array)$forms as $form ) :
+					$form_meta = RGFormsModel::get_form_meta( $form );
+					if ( is_user_logged_in() ) :
+						?>
+						<dd>
+							<?php echo do_shortcode( sprintf( '[formlightbox_call title="%1$s" class="form%2$d"]%1$s[/formlightbox_call]', $form_meta['title'], $form_meta['id'] ) ); ?>
+							<?php echo do_shortcode( sprintf( '[formlightbox_obj id="form%1$d" style="" onload="false"][gravityform id="%1$d" ajax="true"][/formlightbox_obj]', $form_meta['id'] ) ); ?>
+						</dd>
+						<?php
+					else:
+						?>
+						<dd><a href="<?php echo wp_login_url( get_permalink() ); ?>"><?php echo $form_meta['title']; ?></a></dd>
+						<?php
+					endif;
+				endforeach;
+			endif;
 		}
 		?>
 	</dl>

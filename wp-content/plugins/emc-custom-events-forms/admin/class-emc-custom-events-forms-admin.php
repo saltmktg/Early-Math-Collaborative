@@ -158,11 +158,19 @@ class EMC_CustomEventsForms_Admin {
     global $wpdb;
 
     foreach ( (array) $terms as $term ) {
+      if ( is_array( $term ) || is_object( $term ) ) {
+        $term_id = $term->term_id;
+      } else {
+        $term_id = $term;
+      }
 
-      $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->term_relationships WHERE term_taxonomy_id = %d", $term ) );
+      $term_coaches = array_filter( (array)get_field( 'group_coaches', 'group-events-forms_' . $term_id ) );
+      $term_teachers = array_filter( (array)get_field( 'group_teachers', 'group-events-forms_' . $term_id ) );
+
+      $term_count = count( $term_coaches) + count( $term_teachers );
 
       do_action( 'edit_term_taxonomy', $term, $taxonomy );
-      $wpdb->update( $wpdb->term_taxonomy, compact( 'count' ), array( 'term_taxonomy_id' => $term ) );
+      $wpdb->update( $wpdb->term_taxonomy, array( 'count' => $term_count ), array( 'term_id' => $term_id ) );
       do_action( 'edited_term_taxonomy', $term, $taxonomy );
     }
   }

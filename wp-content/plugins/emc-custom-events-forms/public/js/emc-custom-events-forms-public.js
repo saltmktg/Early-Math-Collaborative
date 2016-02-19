@@ -49,12 +49,27 @@
         table.search( this.value ).draw();
     } );
 
-    $('.saved_organizer').on('change', '#saved_organizer', function () {
-    	var coach_id = $(this).val();
+    $( '#tribe-add-recurrence' ).after( ' <button id="tribe-remove-recurrence" class="button">Remove Last Rule</button>' ).click(recurrence_rules_count);
+    recurrence_rules_count();
+    $( '.recurrence-row' ).on( 'click', '#tribe-remove-recurrence', function(e) {
+    	e.preventDefault();
+    	var rules = jQuery( '.recurrence-row' ).find( '.tribe-event-recurrence-rule' ).last().remove();
 
-    	$('.coach-data').hide().filter('.coach-id-'+coach_id).fadeIn()
-    });
-
-
+    	recurrence_rules_count(true);
+    })
 } );
 })( jQuery );
+
+function recurrence_rules_count(discount) {
+	var rules = jQuery( '.recurrence-row' ).find( '.tribe-event-recurrence-rule' );
+
+	if ( true === discount ) {
+		rules.length--;
+	}
+
+	if ( rules.length > 0 ) {
+		jQuery( '#tribe-remove-recurrence' ).fadeIn();
+	} else {
+		jQuery( '#tribe-remove-recurrence' ).hide();
+	}
+}

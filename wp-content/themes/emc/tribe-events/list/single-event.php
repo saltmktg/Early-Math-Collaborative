@@ -55,28 +55,26 @@ endif;
 </td>
 <td>
 <?php
-$customFields = tribe_get_option( 'custom-fields', false );
-if ( is_array( $customFields ) ) {
-	foreach ( $customFields as $field ) {
-		if ( strpos( $field['label'], 'Report' ) ) {
-			$forms = get_post_meta( get_the_id(), $field['name'], true );
-			if( $forms ):
-				$forms = explode( '|', $forms );
-				$forms_list = array();
-				foreach ( (array)$forms as $form ) {
-					$form_meta = RGFormsModel::get_form_meta( str_replace( 'gf_', '', $form ) );
-					$forms_list[] = $form_meta['title'];
-				}
-
-				echo implode( ', ', $forms_list );
-			else :
-
-			    echo 'No Forms assigned';
-
-			endif;
-		}
+$terms = wp_get_post_terms( get_the_ID(), 'tribe_events_cat' );
+$forms = array();
+foreach ( $terms as $term ) {
+	$term_forms = get_field( 'related_forms', 'tribe_events_cat_' . $term->term_id );
+	if ( $term_forms ) {
+		$forms = array_merge( $forms, $term_forms );
 	}
 }
+if( $forms ):
+	foreach ( (array)$forms as $form ) {
+		$form_meta = RGFormsModel::get_form_meta( str_replace( 'gf_', '', $form ) );
+		$forms_list[] = $form_meta['title'];
+	}
+
+	echo implode( ', ', $forms_list );
+else :
+
+    echo 'No Forms assigned';
+
+endif;
 ?>
 
 

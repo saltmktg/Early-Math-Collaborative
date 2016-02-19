@@ -25,6 +25,17 @@ $event_id = get_the_ID();
 
 	<p class="tribe-events-back">
 		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>"> <?php printf( '&laquo; ' . esc_html__( 'All %s', 'the-events-calendar' ), $events_label_plural ); ?></a>
+		<?php
+		if ( is_user_logged_in() ) :
+			global $post,$current_user;
+			get_currentuserinfo();
+			if ($post->post_author == $current_user->ID) :
+				?>
+				<a href="<?php echo get_site_url(); ?>/events/community/edit/<?php echo $event_id; ?>/" class="pull-right"><?php printf( esc_html__( 'Edit this %s', 'the-events-calendar' ), $events_label_singular ); ?></a>
+				<?php
+			endif;
+		endif;
+		?>
 	</p>
 
 	<!-- Notices -->

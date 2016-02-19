@@ -67,9 +67,6 @@
 	float: right;
 	margin-bottom: 10px;
 }
-.coach-data {
-  display: none;
-}
 #emc-events-list{
 	th{
 		background-color: @lgreen;
@@ -90,6 +87,38 @@
 }
 .single-tribe_events .tribe-events-event-meta{
 	width: 100%;
+}
+.chosen-container-single a.chosen-single {
+  height: 33px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  div b {
+  	background-position: 0 6px;
+  }
+}
+#event_organizer .chosen-container-multi {
+  width: 100% !important;
+
+  .chosen-choices {
+	border-color  : #ccc;
+	border-radius : 5px;
+	box-shadow    : none;
+
+	.search-choice {
+		padding-top: 5px;
+		padding-bottom: 5px;
+
+		.search-choice-close {
+			top: 6px;
+		}
+	}
+
+	.search-field input {
+		line-height: 29px;
+		height: 29px;
+	}
+  }
 }
 
 /* DataTables*/

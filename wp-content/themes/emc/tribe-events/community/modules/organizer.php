@@ -77,18 +77,51 @@ if ( ! isset( $event ) ) {
 				echo '<select class="chosen organizer-dropdown" multiple name="organizer[OrganizerID][]" id="saved_organizer">';
 				foreach ( $groups as $group ) {
 					if ( in_array( $group->term_id, $organizer_ids ) ) {
-						printf( '<option value="group_%d" selected="selected">%s</option>', $group->term_id, $group->name );
+						printf( '<option value="%d99999" selected="selected">%s</option>', $group->term_id, $group->name );
 					} else {
-						printf( '<option value="group_%d">%s</option>', $group->term_id, $group->name );
+						printf( '<option value="%d99999">%s</option>', $group->term_id, $group->name );
 					}
 				}
 				echo '</select>';
 				?>
 				</td>
 			</tr>
+			<tr class="saved_organizer">
+				<td><label>Other Attendees:</label></td>
+				<td><?php
+				$customFields = tribe_get_option( 'custom-fields' );
+
+				foreach ( $customFields as $key => $field ) {
+					if ( 'Other Attendee' == $field['label'] ) {
+						$val = '';
+						global $post;
+						if ( isset( $post->ID ) && get_post_meta( get_the_ID(), $field['name'], true ) ) {
+							$val = get_post_meta( get_the_ID(), $field['name'], true );
+						}
+						$val = apply_filters( 'tribe_community_custom_field_value', $val, $field['name'], get_the_ID() );
+
+						$field_id = 'tribe_custom_'.sanitize_title( $field['label'] );
+
+						$values = ! is_array( $val ) ? explode( '|', $val ) : $val;
+						$values = array_values( array_filter( $values ) );
+
+						echo '<div class="multiples-inputs">';
+						for ( $i = 0; $i <= count( $values ); $i++ ) :
+							?>
+							<div class="input-wrap">
+								<input type="text" id="<?php echo esc_attr( $field_id ); ?>" name="<?php echo esc_attr( $field['name'] ); ?>[]" value="<?php echo esc_attr( $values[$i] ); ?>" size="40" />
+							</div>
+							<?php
+						endfor;
+						echo '</div>';
+					}
+				}
+				?>
+				</td>
+			</tr>
 		</tbody>
 		<?php
-		include Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/new-organizer-meta-section.php';
+		//include Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/new-organizer-meta-section.php';
 		?>
 	</table> <!-- #event_organizer -->
 

@@ -1,4 +1,27 @@
-/**
- * All of the CSS for your admin-specific functionality should be
- * included in this file.
- */
+#event_organizer .vtop {
+	vertical-align: top;
+}
+#event_organizer .multiples-inputs .input-wrap {
+  display: table;
+  padding-right: 22px;
+  position: relative;
+}
+#event_organizer .multiples-inputs .input-wrap .plus,
+#event_organizer .multiples-inputs .input-wrap .minus {
+  color: #0095da;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 15px;
+  position: absolute;
+  right: 8px;
+  text-decoration : none !important;
+  top: 6px;
+}
+#event_organizer .multiples-inputs .input-wrap .plus:hover,
+#event_organizer .multiples-inputs .input-wrap .minus:hover {
+  text-decoration: none;
+  text-shadow: 0 0 3px rgba(0, 149, 218, 0.8);
+}
+#event_organizer .multiples-inputs .input-wrap .minus {
+  right: 10px;
+}

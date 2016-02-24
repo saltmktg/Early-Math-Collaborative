@@ -8,9 +8,19 @@
  * @package TribeEventsCalendar
  */
 
+$organizer_ids_full = tribe_get_organizer_ids();
 $coaches = get_users( array( 'role' => 'coach-events', 'fields' => 'ids' ) );
-$organizer_ids = array_intersect( tribe_get_organizer_ids(), $coaches );
-$multiple = count( $organizer_ids ) > 1;
+$groups = get_terms( 'group-events-forms', array( 'fields' => 'ids' ) );
+$organizer_ids = array_intersect( $organizer_ids_full, $coaches );
+foreach( $organizer_ids_full as $key => $organizer_id ) {
+	if ( strpos( $organizer_id, '99999' ) ) {
+		$organizer_ids_full[$key] = str_replace( '99999', '', $organizer_id );
+	} else {
+		unset( $organizer_ids_full[$key] );
+	}
+}
+$groups_ids = array_intersect( $organizer_ids_full, $groups );
+$multiple = ( count( $organizer_ids ) + count( $groups_ids ) ) > 1;
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
@@ -34,6 +44,34 @@ $multiple = count( $organizer_ids ) > 1;
 				<h4><?php echo $organizer->display_name; ?></h4>
 			</dd>
 			<?php
+		}
+
+		if ( $groups_ids ) {
+			foreach ( $groups_ids as $group_id ) {
+				$term = get_term( $group_id, 'group-events-forms' );
+				$term_coaches  = array_filter( (array)get_field( 'group_coaches', 'group-events-forms_' . $group_id ) );
+				$term_teachers = array_filter( (array)get_field( 'group_teachers', 'group-events-forms_' . $group_id ) );
+
+				if ( $term_coaches || $term_teachers ) :
+					?>
+					<dd class="tribe-organizer">
+						<h4><?php echo $term->name; ?></h4>
+						<ul>
+							<?php
+							foreach( $term_coaches as $coach ) :
+								printf( '<li>%s</li>', $coach['display_name'] );
+							endforeach;
+							?>
+							<?php
+							foreach( $term_teachers as $teacher ) :
+								printf( '<li>%s</li>', $teacher['display_name'] );
+							endforeach;
+							?>
+						</ul>
+					</dd>
+					<?php
+				endif;
+			}
 		}
 
 		if ( ! $multiple ) { // only show organizer details if there is one
@@ -113,13 +151,18 @@ $multiple = count( $organizer_ids ) > 1;
 		?>
 	</dl>
 </div>
-<?php /*
-<div class="tribe-events-meta-group">
-	<h3 class="tribe-events-single-section-title">Participants</h3>
-	<dl>
-		<dd class="tribe-participants">Group One</dd>
-		<dd class="tribe-participants">Teacher One</dd>
-		<dd class="tribe-participants">Teacher Two</dd>
-		<dd class="tribe-participants">Someone</dd>
-	</dl>
-</div> */ ?>
+<?php
+$fields = tribe_get_custom_fields();
+
+foreach ( $fields as $field => $value ) {
+	if ( 'Other Attendee' == $field ) {
+		?>
+		<div class="tribe-events-meta-group">
+			<h3 class="tribe-events-single-section-title">Other Attendees</h3>
+			<dl>
+				<dd class="tribe-participants"><?php echo $value; ?></dd>
+			</dl>
+		</div>
+		<?php
+	}
+}

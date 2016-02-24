@@ -1,4 +1,10 @@
 <?php
+foreach ( $customFields as $key => $field ) {
+	if ( 'Gravity Forms' == $field['values'] || 'Other Attendee' == $field['label'] ) {
+		unset( $customFields[$key] );
+	}
+}
+
 if ( empty( $customFields ) || ! is_array( $customFields ) ) {
 	return;
 }

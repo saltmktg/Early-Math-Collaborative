@@ -121,6 +121,40 @@
   }
 }
 
+#event_organizer {
+	.multiples-inputs {
+		.input-wrap {
+			display       : table;
+			margin-bottom : 5px;
+			padding-right : 28px;
+			position      : relative;
+
+			.plus,
+			.minus {
+				color           : #0095da;
+				font-size       : 22px;
+				font-weight     : 700;
+				line-height     : 15px;
+				position        : absolute;
+				right           : 8px;
+				text-decoration : none !important;
+				top             : 8px;
+
+				&:hover {
+					text-decoration : none;
+					text-shadow     : 0 0 3px rgba(#0095da, .8);
+				}
+			}
+
+			.minus {
+				right     : 11px;
+				top       : 6px;
+				transform : scale(1.6, 1);
+			}
+		}
+	}
+}
+
 /* DataTables*/
 tfoot input {
 	box-sizing: border-box;

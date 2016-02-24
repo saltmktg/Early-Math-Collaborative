@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $customFields = tribe_get_option( 'custom-fields' );
 
 foreach ( $customFields as $key => $field ) {
-	if ( 'Gravity Forms' == $field['values'] ) {
+	if ( 'Gravity Forms' == $field['values'] || 'Other Attendee' == $field['label'] ) {
 		unset( $customFields[$key] );
 	}
 }

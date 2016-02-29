@@ -195,6 +195,108 @@ class EMC_CustomEventsForms_Admin {
     );
   }
 
+  public function my_update_post_meta( $meta_id, $object_id, $meta_key, $_meta_value ) {
+    if ( wp_is_post_revision( $object_id ) )
+      return;
+    if ( 'tribe_events' != get_post_type( $object_id ) )
+      return;
+    if ( '_EventStartDate' != $meta_key )
+      return;
+
+    $old_event_start_date = get_post_meta( $object_id, '_EventStartDate', true );
+    $new_event_start_date = $_meta_value;
+
+    if ( $old_event_start_date != $new_event_start_date ) {
+      $old_data = get_post_meta( $object_id, 'rescheduled', true );
+      $new_data = array(
+        'from' => $old_event_start_date,
+        'to' => $new_event_start_date
+        );
+
+      if ( end( $old_data ) == $new_data )
+        return;
+
+      if ( ! $old_data ) {
+        $old_data = array();
+      }
+
+      array_push( $old_data, $new_data );
+      update_post_meta( $object_id, 'rescheduled', $old_data );
+    }
+  }
+
+  /**
+ * First create the dropdown
+ * make sure to change POST_TYPE to the name of your custom post type
+ *
+ * @author Ohad Raz
+ *
+ * @return void
+ */
+  function my_admin_posts_filter_restrict_manage_posts(){
+    $type = 'post';
+    if (isset($_GET['post_type'])) {
+      $type = $_GET['post_type'];
+    }
+
+    //only add filter to post type you want
+    if ('tribe_events' == $type){
+        //change this to the list of values you want to show
+        //in 'label' => 'value' format
+      $values = array(
+        'Rescheduled' => 'rescheduled',
+        'Canceled' => 'canceled',
+        );
+        ?>
+        <select name="event_status">
+          <option value=""><?php _e('All Event Status'); ?></option>
+          <?php
+          $current_v = isset($_GET['event_status'])? $_GET['event_status']:'';
+          foreach ($values as $label => $value) {
+            printf
+            (
+              '<option value="%s"%s>%s</option>',
+              $value,
+              $value == $current_v? ' selected="selected"':'',
+              $label
+              );
+          }
+          ?>
+        </select>
+        <?php
+      }
+    }
+
+  /**
+ * if submitted filter by post meta
+ *
+ * make sure to change META_KEY to the actual meta key
+ * and POST_TYPE to the name of your custom post type
+ * @author Ohad Raz
+ * @param  (wp_query object) $query
+ *
+ * @return Void
+ */
+  function my_posts_filter( $query ){
+    global $pagenow;
+    $type = 'post';
+    if (isset($_GET['post_type'])) {
+      $type = $_GET['post_type'];
+    }
+    if ( 'tribe_events' == $type && is_admin() && $pagenow=='edit.php' && isset($_GET['event_status']) && $_GET['event_status'] != '') {
+      switch ( $_GET['event_status'] ) {
+        case 'rescheduled':
+          $query->set( 'meta_key', 'rescheduled' );
+          $query->set( 'meta_compare', 'EXISTS' );
+          break;
+        case 'canceled':
+          $query->set( 'post_status', 'canceled' );
+          break;
+      }
+    }
+    return $query;
+  }
+
   /**
    * Unsets the 'posts' column and adds a 'users' column on the manage group admin page.
    *

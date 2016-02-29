@@ -158,6 +158,10 @@ class EMC_CustomEventsForms {
 		$this->loader->add_action( 'init', $plugin_admin, 'my_register_user_taxonomy' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'my_add_group_admin_page' );
 
+		$this->loader->add_action( 'update_post_meta', $plugin_admin, 'my_update_post_meta', 10, 4 );
+		$this->loader->add_action( 'restrict_manage_posts', $plugin_admin, 'my_admin_posts_filter_restrict_manage_posts' );
+		$this->loader->add_filter( 'parse_query', $plugin_admin, 'my_posts_filter' );
+
 		/* Create custom columns for the manage group page. */
 		$this->loader->add_filter( 'manage_edit-group_columns', $plugin_admin,'my_manage_group_user_column' );
 
@@ -192,6 +196,7 @@ class EMC_CustomEventsForms {
 	 */
 	private function define_public_hooks() {
 
+		$plugin_admin = new EMC_CustomEventsForms_Admin( $this->get_plugin_name(), $this->get_version() );
 		$plugin_public = new EMC_CustomEventsForms_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
@@ -201,6 +206,8 @@ class EMC_CustomEventsForms {
 		$this->loader->add_action( 'tribe_events_after_loop', $plugin_public, 'after_event_list' );
 
 		$this->loader->add_filter( 'tribe_get_custom_fields', $plugin_public, 'get_custom_fields' );
+
+		$this->loader->add_action( 'update_post_meta', $plugin_admin, 'my_update_post_meta', 10, 4 );
 
 	}
 

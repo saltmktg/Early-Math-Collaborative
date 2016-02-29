@@ -161,6 +161,7 @@ class EMC_CustomEventsForms {
 		$this->loader->add_action( 'update_post_meta', $plugin_admin, 'my_update_post_meta', 10, 4 );
 		$this->loader->add_action( 'restrict_manage_posts', $plugin_admin, 'my_admin_posts_filter_restrict_manage_posts' );
 		$this->loader->add_filter( 'parse_query', $plugin_admin, 'my_posts_filter' );
+		$this->loader->add_action( 'transition_post_status', $plugin_admin, 'my_new_event_send_email', 10, 3 );
 
 		/* Create custom columns for the manage group page. */
 		$this->loader->add_filter( 'manage_edit-group_columns', $plugin_admin,'my_manage_group_user_column' );
@@ -207,7 +208,8 @@ class EMC_CustomEventsForms {
 
 		$this->loader->add_filter( 'tribe_get_custom_fields', $plugin_public, 'get_custom_fields' );
 
-		$this->loader->add_action( 'update_post_meta', $plugin_admin, 'my_update_post_meta', 10, 4 );
+		//$this->loader->add_action( 'update_post_meta', $plugin_admin, 'my_update_post_meta', 10, 4 );
+		//$this->loader->add_action( 'wp_insert_post', $plugin_admin, 'my_new_event_send_email', 10, 3 );
 
 	}
 

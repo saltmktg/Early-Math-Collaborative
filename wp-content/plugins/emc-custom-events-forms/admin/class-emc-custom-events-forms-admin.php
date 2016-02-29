@@ -225,6 +225,22 @@ class EMC_CustomEventsForms_Admin {
     }
   }
 
+  function my_new_event_send_email( $new_status, $old_status, $post ) {
+    if ( ! in_array( $old_status, array( 'draft', 'auto-draft' ) ) && 'publish' != $new_status )
+      return;
+    if ( wp_is_post_revision( $post->ID ) )
+      return;
+
+    $post_url = get_permalink( $post->ID );
+    $subject = 'New event';
+
+    $message = "A new event has been created on your website:\n\n";
+    $message .= get_the_title( $post->ID ) . ": " . $post_url;
+
+  // Send email to admin.
+    wp_mail( 'paulo@saucal.com', $subject, $message );
+  }
+
   /**
  * First create the dropdown
  * make sure to change POST_TYPE to the name of your custom post type

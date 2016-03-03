@@ -162,6 +162,8 @@ class EMC_CustomEventsForms {
 		$this->loader->add_action( 'restrict_manage_posts', $plugin_admin, 'my_admin_posts_filter_restrict_manage_posts' );
 		$this->loader->add_filter( 'parse_query', $plugin_admin, 'my_posts_filter' );
 		$this->loader->add_action( 'transition_post_status', $plugin_admin, 'my_new_event_send_email', 10, 3 );
+		$this->loader->add_filter( 'manage_tribe_events_posts_columns' , $plugin_admin, 'my_add_custom_columns', 50 );
+		$this->loader->add_action( 'manage_tribe_events_posts_custom_column' , $plugin_admin, 'my_custom_columns', 10, 2 );
 
 		/* Create custom columns for the manage group page. */
 		$this->loader->add_filter( 'manage_edit-group_columns', $plugin_admin,'my_manage_group_user_column' );

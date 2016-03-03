@@ -413,4 +413,21 @@ class EMC_CustomEventsForms_Admin {
 
     return $template;
   }
+
+  function my_add_custom_columns( $columns ) {
+    return array_merge( $columns, array( 'rescheduled' => __( 'Rescheduled' ) ) );
+  }
+
+  function my_custom_columns( $column, $post_id ) {
+    switch ( $column ) {
+      case 'rescheduled':
+        $rescheduled_data = get_post_meta( $post_id, 'rescheduled', true );
+        if ( $rescheduled_data ) {
+          printf( ngettext( "Yes (%d time)", "Yes (%d times)", count( $rescheduled_data ) ), count( $rescheduled_data ) );
+        } else {
+          echo 'No';
+        }
+      break;
+    }
+  }
 }

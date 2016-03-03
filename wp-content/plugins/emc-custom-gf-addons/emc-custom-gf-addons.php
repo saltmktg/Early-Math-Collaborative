@@ -11,7 +11,7 @@
 
 if ( class_exists( 'GFForms' ) ) {
 	GFForms::include_addon_framework();
-	class GFSimpleAddOn extends GFAddOn {
+	class EMC_Custom_GF_Addons extends GFAddOn {
 		protected $_version = '1.0';
 		protected $_min_gravityforms_version = '1.9';
 		protected $_slug = 'emc-custom-gf-addons';
@@ -19,31 +19,6 @@ if ( class_exists( 'GFForms' ) ) {
 		protected $_full_path = __FILE__;
 		protected $_title = 'Gravity Forms Event Settings';
 		protected $_short_title = 'Events Settings';
-
-		public function pre_init() {
-			parent::pre_init();
-			// add tasks or filters here that you want to perform during the class constructor - before WordPress has been completely initialized
-		}
-
-		public function init() {
-			parent::init();
-			// add tasks or filters here that you want to perform both in the backend and frontend and for ajax requests
-		}
-
-		public function init_admin() {
-			parent::init_admin();
-			// add tasks or filters here that you want to perform only in admin
-		}
-
-		public function init_frontend() {
-			parent::init_frontend();
-			// add tasks or filters here that you want to perform only in the front end
-		}
-
-		public function init_ajax() {
-			parent::init_ajax();
-			// add tasks or filters here that you want to perform only during ajax requests
-		}
 
 		public function form_settings_fields($form) {
 			$users = get_users( array( 'orderby' => 'display_name' ) );
@@ -66,7 +41,7 @@ if ( class_exists( 'GFForms' ) ) {
 							"choices" => array(
 								array(
 									"label" => "Disable",
-									"name"  => "disable"
+									"name"  => "disable_for_all"
 								)
 							)
 						),
@@ -135,5 +110,5 @@ if ( class_exists( 'GFForms' ) ) {
 		}
 	}
 
-	new GFSimpleAddOn();
+	new EMC_Custom_GF_Addons();
 }

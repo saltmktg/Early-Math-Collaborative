@@ -133,13 +133,21 @@ $multiple = ( count( $organizer_ids ) + count( $groups_ids ) ) > 1;
 				<?php
 				foreach ( (array)$forms as $form ) :
 					$form_meta = RGFormsModel::get_form_meta( $form );
+					$form_settings = rgar( $form_meta, 'emc-custom-gf-addons' );
 					if ( is_user_logged_in() ) :
-						?>
-						<dd>
-							<?php echo do_shortcode( sprintf( '[formlightbox_call title="%1$s" class="form%2$d"]%1$s[/formlightbox_call]', $form_meta['title'], $form_meta['id'] ) ); ?>
-							<?php echo do_shortcode( sprintf( '[formlightbox_obj id="form%1$d" style="" onload="false"][gravityform id="%1$d" ajax="true"][/formlightbox_obj]', $form_meta['id'] ) ); ?>
-						</dd>
+						if ( in_array( $current_user->ID, (array)$form_settings['disable_for_users'] ) || $form_settings['disable_for_all'] ) :
+							?>
+							<dd><?php echo $form_meta['title']; ?></dd>
+							<?php
+						else :
+							?>
+							<dd>
+
+								<?php echo do_shortcode( sprintf( '[formlightbox_call title="%1$s" class="form%2$d"]%1$s[/formlightbox_call]', $form_meta['title'], $form_meta['id'] ) ); ?>
+								<?php echo do_shortcode( sprintf( '[formlightbox_obj id="form%1$d" style="" onload="false"][gravityform id="%1$d" ajax="true"][/formlightbox_obj]', $form_meta['id'] ) ); ?>
+							</dd>
 						<?php
+						endif;
 					else:
 						?>
 						<dd><a href="<?php echo wp_login_url( get_permalink() ); ?>"><?php echo $form_meta['title']; ?></a></dd>

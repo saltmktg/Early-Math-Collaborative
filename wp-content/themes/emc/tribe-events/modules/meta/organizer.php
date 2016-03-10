@@ -160,6 +160,13 @@ $multiple = ( count( $organizer_ids ) + count( $groups_ids ) ) > 1;
 	</dl>
 </div>
 <?php
+$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : ' ' . get_option( 'gmt_offset' );
+$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
+
+if ( ! tribe_is_showing_all() && strtotime( tribe_get_end_date( $post, false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) {
+	$_event_passed = true;
+}
+
 $fields = tribe_get_custom_fields();
 
 foreach ( $fields as $field => $value ) {
@@ -168,7 +175,20 @@ foreach ( $fields as $field => $value ) {
 		<div class="tribe-events-meta-group">
 			<h3 class="tribe-events-single-section-title">Other Attendees</h3>
 			<dl>
-				<dd class="tribe-participants"><?php echo $value; ?></dd>
+				<?php if ( ( is_user_logged_in() && ( 'administrator' == $role || 'coach-events' == $role ) ) && $_event_passed ) : ?>
+					<dd class="tribe-participants"><?php
+					$attendees = explode( ',', $value );
+					$attendees = array_map( 'trim', $attendees );
+					$attendees = array_filter( $attendees );
+					$value = array();
+					foreach ( $attendees as $key => $attendee ) {
+						$value[] = sprintf( '%s <small>(<a href="#" class="remove-attendee" data-event="%d" data-attendee="%d" data-attendee-name="%s">Remove</a>)</small>', $attendee, get_the_ID(), ( $key + 1), $attendee );
+					}
+					echo implode( ', ', $value );
+					?></dd>
+				<?php else : ?>
+					<dd class="tribe-participants"><?php echo $value; ?>...</dd>
+				<?php endif; ?>
 			</dl>
 		</div>
 		<?php

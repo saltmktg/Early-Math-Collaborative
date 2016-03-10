@@ -76,6 +76,34 @@
 				refresh_control_elements(multiples_inputs);
 			});
 		})(jQuery);
+
+		(function($){
+			var $_attendees = $( '.remove-attendee' ).parents( '.tribe-participants' );
+			$_attendees.on( 'click', '.remove-attendee', function(e) {
+				e.preventDefault();
+
+				var event_id = $(this).data( 'event' ),
+					attendee_key = $(this).data( 'attendee' ),
+					attendee_name = $(this).data( 'attendee-name' ),
+					result = confirm( 'Want to remove ' + attendee_name + ' from attendees list?' );
+
+				if ( result ) {
+					var data = {
+						'action'       : 'remove_attendee',
+						'event_id'     : event_id,
+						'attendee_key' : attendee_key
+					};
+
+					$_attendees.html( 'Removing...' );
+
+					jQuery.post(ajax_object.ajax_url, data, function(response) {
+						if ( response ) {
+							$_attendees.html( response );
+						}
+					});
+				}
+			});
+		})(jQuery);
 	} );
 })( jQuery );
 

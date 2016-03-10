@@ -395,8 +395,8 @@ add_filter( 'publish_to_canceled', 'emc_cps_post_canceled');
  * @param object $post
  */
 function emc_cps_remove_canceled_from_frontend( $query ) {
-	if ( ! $query->is_admin() && $query->is_main_query() && 'tribe_events' == $query->query_vars['post_type'] ) {
+	if ( emc_cps_is_frontend() && $query->is_main_query() && 'tribe_events' == $query->query_vars['post_type'] ) {
 		$query->set( 'post_status', 'publish' );
 	}
 }
-add_filter( 'pre_get_posts', 'emc_cps_remove_canceled_from_frontend');
+//add_filter( 'pre_get_posts', 'emc_cps_remove_canceled_from_frontend');

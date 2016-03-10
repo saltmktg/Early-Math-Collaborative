@@ -101,6 +101,8 @@ class EMC_CustomEventsForms_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/emc-custom-events-forms-public.js', array( 'jquery' ), $this->version, false );
+		wp_localize_script( $this->plugin_name, 'ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+
     /* DataTables Basics */
     wp_enqueue_script( 'jquery.dataTables', plugin_dir_url( __FILE__ ) . 'js/jquery.dataTables.min.js' );
 
@@ -141,4 +143,37 @@ class EMC_CustomEventsForms_Public {
 
   	return $custom_fields;
   }
+
+  public function remove_attendee_callback() {
+  		$event_id = sanitize_key( $_POST['event_id'] );
+  		$attendee_key = sanitize_key( $_POST['attendee_key'] );
+
+		$customFields = tribe_get_option( 'custom-fields', false );
+		if ( is_array( $customFields ) ) {
+			foreach ( $customFields as $field ) {
+				if ( $field['label'] === 'Other Attendee' ) {
+					$field_name = $field['name'];
+					$field_value = get_post_meta( $event_id, $field['name'], true );
+				}
+			}
+		}
+
+		$attendees = explode( '|', $field_value );
+		$attendees = array_filter( $attendees );
+
+		if ( $attendee_key > 0 ) {
+			unset($attendees[$attendee_key - 1]);
+		}
+
+		update_post_meta( $event_id, $field['name'], implode( '|', $attendees ) );
+
+		$value = array();
+		foreach ( $attendees as $key => $attendee ) {
+			$value[] = sprintf( '%s <small>(<a href="#" class="remove-attendee" data-event="%d" data-attendee="%d">Remove</a>)</small>', $attendee, get_the_ID(), ( $key + 1) );
+		}
+
+		echo implode( ', ', $value );
+
+		wp_die();
+	}
 }

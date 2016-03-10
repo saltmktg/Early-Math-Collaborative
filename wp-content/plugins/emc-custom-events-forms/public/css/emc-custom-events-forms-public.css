@@ -84,6 +84,9 @@
 .single-tribe_events .tribe-events-event-meta {
   width: 100%;
 }
+.single-tribe_events .tribe-participants small {
+  font-size: 10px;
+}
 .chosen-container-single a.chosen-single {
   height: 33px;
   padding-top: 5px;

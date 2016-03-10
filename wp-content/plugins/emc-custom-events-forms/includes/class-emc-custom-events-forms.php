@@ -210,6 +210,9 @@ class EMC_CustomEventsForms {
 
 		$this->loader->add_filter( 'tribe_get_custom_fields', $plugin_public, 'get_custom_fields' );
 
+		$this->loader->add_action( 'wp_ajax_remove_attendee', $plugin_public, 'remove_attendee_callback' );
+		$this->loader->add_action( 'wp_ajax_nopriv_remove_attendee', $plugin_public, 'remove_attendee_callback' );
+
 		//$this->loader->add_action( 'update_post_meta', $plugin_admin, 'my_update_post_meta', 10, 4 );
 		//$this->loader->add_action( 'wp_insert_post', $plugin_admin, 'my_new_event_send_email', 10, 3 );
 

@@ -215,6 +215,8 @@ class EMC_CustomEventsForms {
 
 		//$this->loader->add_action( 'update_post_meta', $plugin_admin, 'my_update_post_meta', 10, 4 );
 		//$this->loader->add_action( 'wp_insert_post', $plugin_admin, 'my_new_event_send_email', 10, 3 );
+		//
+		$this->loader->add_action( 'gform_after_submission', $plugin_public, 'save_post_id_on_gravity_forms', 10, 2 );
 
 	}
 

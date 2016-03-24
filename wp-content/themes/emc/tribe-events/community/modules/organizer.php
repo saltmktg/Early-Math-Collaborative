@@ -20,6 +20,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! isset( $event ) ) {
 	$event = Tribe__Events__Main::postIdHelper();
 }
+
+if ( ! $_POST ) {
+	$organizer_ids = function_exists( 'tribe_get_organizer_ids' ) ? tribe_get_organizer_ids() : "";
+} else {
+	$organizer_ids = isset( $_POST['organizer']['OrganizerID'] ) ? array_filter( $_POST['organizer']['OrganizerID'] ) : '';
+}
 ?>
 
 <!-- Organizer -->
@@ -35,7 +41,6 @@ if ( ! isset( $event ) ) {
 		<tbody>
 			<?php
 			// The organizer meta box will render everything within a <tbody>
-			$organizer_ids = tribe_get_organizer_ids();
 			$coaches = get_users( array( 'role' => 'coach-events', 'orderby' => 'display_name' ) );
 			$teachers = get_users( array( 'role' => 'teacher-events', 'orderby' => 'display_name' ) );
 			$groups = get_terms( 'group-events-forms', array( 'hide_empty' => false ) );

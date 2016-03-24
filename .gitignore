@@ -15,6 +15,7 @@ wp-content/plugins/*
 !wp-content/plugins/emc-custom-events-forms*
 !wp-content/plugins/emc-custom-post-status*
 !wp-content/plugins/emc-custom-gf-addons*
+!wp-content/plugins/gravity-forms-edit-entries*
 
 # Ignore everything in the "themes" directory, except the themes you
 # specify (see the commented-out example for a hint on how to do this.)

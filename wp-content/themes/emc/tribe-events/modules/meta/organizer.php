@@ -142,9 +142,44 @@ $multiple = ( count( $organizer_ids ) + count( $groups_ids ) ) > 1;
 						else :
 							?>
 							<dd>
-
+								<?php
+								$search_criteria = array(
+									'field_filters' => array(
+										array(
+											'key' => 'created_by',
+											'value' => $current_user->ID,
+										),
+										array(
+											'key' => 'post_id',
+											'value' => $event_id,
+										),
+									),
+									'status' => 'active',
+								);
+								$entries = GFAPI::get_entries( $form_meta['id'], $search_criteria );
+								if ( $entry = $entries[0] ) {
+									echo do_shortcode( sprintf( '[gf-edit-entries form_id="%d" entry_id="%d"]', $form_meta['id'], $entry['id'] ) );
+								}
+								?>
 								<?php echo do_shortcode( sprintf( '[formlightbox_call title="%1$s" class="form%2$d"]%1$s[/formlightbox_call]', $form_meta['title'], $form_meta['id'] ) ); ?>
 								<?php echo do_shortcode( sprintf( '[formlightbox_obj id="form%1$d" style="" onload="false"][gravityform id="%1$d" ajax="true"][/formlightbox_obj]', $form_meta['id'] ) ); ?>
+								<?php
+								if ( $_GET['form'] ) {
+									$form_hash = md5( $form_meta['id'] . get_the_ID() );
+
+									if ( $_GET['form'] == $form_hash ) {
+										?>
+										<script type="text/javascript">
+										jQuery(document).ready(function($) {
+											setTimeout(function(){
+												$( '.fl_box-form<?php echo $form_meta['id']; ?>' ).trigger( 'click' );
+											}, 1000);
+										});
+										</script>
+										<?php
+									}
+								}
+								?>
 							</dd>
 						<?php
 						endif;

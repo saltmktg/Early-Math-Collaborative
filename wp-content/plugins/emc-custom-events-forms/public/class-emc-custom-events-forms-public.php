@@ -176,4 +176,8 @@ class EMC_CustomEventsForms_Public {
 
 		wp_die();
 	}
+
+	public function save_post_id_on_gravity_forms( $entry, $form ) {
+		GFAPI::update_entry_property( $entry['id'], 'post_id', get_the_ID() );
+	}
 }

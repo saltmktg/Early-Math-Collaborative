@@ -18,10 +18,10 @@
   width: 100%;
 }
 #tribe-events-content a.no-entry {
-  color : red;
+  color: red;
 }
 #tribe-events-content a.has-entry {
-  color : #0095da;
+  color: #0095da;
 }
 .emc-big-btn {
   background: #C5E1A5;
@@ -120,7 +120,6 @@
   line-height: 29px;
   height: 29px;
 }
-
 #event_organizer .multiples-inputs .input-wrap {
   display: table;
   margin-bottom: 5px;
@@ -135,7 +134,7 @@
   line-height: 15px;
   position: absolute;
   right: 8px;
-  text-decoration : none !important;
+  text-decoration: none !important;
   top: 8px;
 }
 #event_organizer .multiples-inputs .input-wrap .plus:hover,
@@ -146,10 +145,11 @@
 #event_organizer .multiples-inputs .input-wrap .minus {
   right: 11px;
   top: 6px;
-  -webkit-transform: scale(1.6, 1);
-          transform: scale(1.6, 1);
+  transform: scale(1.6, 1);
 }
-
+.request-help {
+  text-align: center;
+}
 /* DataTables*/
 tfoot input {
   box-sizing: border-box;

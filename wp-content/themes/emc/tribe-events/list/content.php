@@ -55,6 +55,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php do_action( 'tribe_events_after_footer_nav' ); ?>
 
 	</div>
+
+	<div class="request-help">
+		<?php echo do_shortcode( sprintf( '[formlightbox_call title="%1$s" class="form%2$d dt-button"]%1$s[/formlightbox_call]', 'Easy Edit/Help Request', 12 ) ); ?>
+		<?php echo do_shortcode( sprintf( '[formlightbox_obj id="form%1$d" style="" onload="false"][gravityform id="%1$d" ajax="true"][/formlightbox_obj]', 12 ) ); ?>
+	</div>
 	<!-- #tribe-events-footer -->
 	<?php do_action( 'tribe_events_after_footer' ) ?>
 

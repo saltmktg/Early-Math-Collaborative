@@ -125,9 +125,8 @@ if ( ! $_POST ) {
 				</td>
 			</tr>
 		</tbody>
-		<?php
-		//include Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/new-organizer-meta-section.php';
-		?>
 	</table> <!-- #event_organizer -->
+
+	<script type="text/template" id="tmpl-tribe-create-organizer"></script>
 
 </div>

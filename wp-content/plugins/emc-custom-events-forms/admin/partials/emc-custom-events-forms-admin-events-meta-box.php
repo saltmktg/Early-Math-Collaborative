@@ -280,6 +280,8 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 		?>
 	</table>
 
+	<script type="text/template" id="tmpl-tribe-create-organizer"></script>
+
 	<?php
 	/**
 	 * Fires just after closing table tag after Event Website in The Events Calendar meta box

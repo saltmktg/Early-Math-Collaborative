@@ -146,6 +146,20 @@ $website = tribe_get_event_website_link();
 			<dd class="tribe-events-event-url"> <?php echo $website; ?> </dd>
 		<?php endif ?>
 
+		<?php
+		// Event Rescheduled
+		$rescheduled_data = get_post_meta( get_the_ID(), 'rescheduled', true );
+		if ( $rescheduled_data ) : ?>
+			<dt>Event Rescheduled?</dt>
+			<dd><?php printf( ngettext( "Yes (%d time)", "Yes (%d times)", count( $rescheduled_data ) ), count( $rescheduled_data ) ); ?></dd>
+		<?php endif; ?>
+
+		<?php
+		// Event Cancelled
+		if ( 'canceled' == get_post_status( get_the_ID() ) ) : ?>
+			<dt>Event Cancelled?</dt>
+			<dd>Yes</dd>
+		<?php endif; ?>
 		<?php do_action( 'tribe_events_single_meta_details_section_end' ) ?>
 	</dl>
 </div>

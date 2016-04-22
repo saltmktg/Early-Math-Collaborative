@@ -168,6 +168,37 @@
 	text-align : center;
 }
 
+.tribe-events-calendar {
+	.tribe-events-addnew {
+		margin     : 0 5%;
+		opacity    : 0;
+		padding    : 9px 8px;
+		transition : opacity .25s;
+
+		button {
+			background  : none;
+			border      : 0;
+			font-size   : 12px;
+			font-weight : bold;
+			line-height : 1;
+			margin      : 0;
+			padding     : 0;
+
+			&:hover {
+				color : #0095da;
+			}
+		}
+	}
+
+	tbody {
+		td:hover {
+			.tribe-events-addnew {
+				opacity : 1;
+			}
+		}
+	}
+}
+
 /* DataTables*/
 tfoot input {
 	box-sizing: border-box;

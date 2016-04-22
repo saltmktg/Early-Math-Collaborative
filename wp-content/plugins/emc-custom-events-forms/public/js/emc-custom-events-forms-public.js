@@ -36,7 +36,8 @@
 				'excelHtml5',
 				'csvHtml5',
 				'pdfHtml5'
-			]
+			],
+			order:[[ 2, 'asc' ]]
 		} );
 		var table = $('#emc-events-list').DataTable();
 		if( typeof tribe_ev !== 'undefined' ){

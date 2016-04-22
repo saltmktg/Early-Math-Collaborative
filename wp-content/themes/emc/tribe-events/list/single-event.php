@@ -45,7 +45,10 @@ endif;
 		?>
 
 </td>
-<td>
+<?php
+$event_date = tribe_get_start_date(get_the_ID());
+?>
+<td data-order="<?php echo $event_date; ?>">
 			<?php echo tribe_events_event_schedule_details() ?>
 </td>
 <td>

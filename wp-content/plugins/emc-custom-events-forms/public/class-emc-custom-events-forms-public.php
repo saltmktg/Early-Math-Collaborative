@@ -103,17 +103,17 @@ class EMC_CustomEventsForms_Public {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/emc-custom-events-forms-public.js', array( 'jquery' ), $this->version, false );
 		wp_localize_script( $this->plugin_name, 'ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
-    /* DataTables Basics */
-    wp_enqueue_script( 'jquery.dataTables', plugin_dir_url( __FILE__ ) . 'js/jquery.dataTables.min.js' );
+		/* DataTables Basics */
+		wp_enqueue_script( 'jquery.dataTables', plugin_dir_url( __FILE__ ) . 'js/jquery.dataTables.min.js' );
 
-    /* DataTables Extensions */
-    wp_enqueue_script( 'jq_btn_DT', plugin_dir_url( __FILE__ ) . 'js/dataTables.buttons.min.js' );
-    wp_enqueue_script( 'jszip', plugin_dir_url( __FILE__ ) . 'js/jszip.min.js' );
-    wp_enqueue_script( 'pdfmake',  plugin_dir_url( __FILE__ ) . 'js/pdfmake.min.js' );
-    wp_enqueue_script( 'vfs_fonts',  plugin_dir_url( __FILE__ ) . 'js/vfs_fonts.js' );
-    wp_enqueue_script( 'buttons.html5',  plugin_dir_url( __FILE__ ) . 'js/buttons.html5.min.js' );
-    /* Bootstrap */
-    wp_enqueue_script( 'bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', array('jquery'), true);
+		/* DataTables Extensions */
+		wp_enqueue_script( 'jq_btn_DT', plugin_dir_url( __FILE__ ) . 'js/dataTables.buttons.min.js' );
+		wp_enqueue_script( 'jszip', plugin_dir_url( __FILE__ ) . 'js/jszip.min.js' );
+		wp_enqueue_script( 'pdfmake',  plugin_dir_url( __FILE__ ) . 'js/pdfmake.min.js' );
+		wp_enqueue_script( 'vfs_fonts',  plugin_dir_url( __FILE__ ) . 'js/vfs_fonts.js' );
+		wp_enqueue_script( 'buttons.html5',  plugin_dir_url( __FILE__ ) . 'js/buttons.html5.min.js' );
+		/* Bootstrap */
+		wp_enqueue_script( 'bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', array('jquery'), true);
 
 	}
 
@@ -179,5 +179,33 @@ class EMC_CustomEventsForms_Public {
 
 	public function save_post_id_on_gravity_forms( $entry, $form ) {
 		GFAPI::update_entry_property( $entry['id'], 'post_id', get_the_ID() );
+	}
+
+	public function change_query_where_for_events_list( $where ) {
+		global $wp_query;
+		if ( false !== strpos( $where, '_EventStartDate' ) ) {
+			if ( is_post_type_archive( 'tribe_events') && 'list' == $wp_query->query_vars['eventDisplay'] ) {
+				$where = " AND wp_posts.post_type = 'tribe_events' AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'canceled')";
+			}
+
+				global $wp_roles;
+				$current_user = wp_get_current_user();
+				$roles = $current_user->roles;
+				$role = array_shift($roles);
+
+				if ( is_user_logged_in() && 'coach-events' == $role ) {
+					$where .= " AND ((wp_postmeta.meta_key = '_EventOrganizerID' && wp_postmeta.meta_value = " . $current_user->ID . ") OR (wp_posts.post_author = " . $current_user->ID . "))";
+				}
+		}
+
+		return $where;
+	}
+
+	public function change_query_args_for_events_list( $query ) {
+		if ( !is_admin() && $query->is_main_query() && is_post_type_archive( 'tribe_events') ) {
+			$query->set( 'posts_per_page', '-1' );
+		}
+
+		return $query;
 	}
 }

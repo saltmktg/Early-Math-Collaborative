@@ -188,6 +188,8 @@ class EMC_CustomEventsForms {
 		/* Filter the organizer meta box template location. */
 		$this->loader->add_filter( 'tribe_events_meta_box_template', $plugin_admin, 'events_meta_box_template' );
 		$this->loader->add_filter( 'tribe_events_event_meta_template', $plugin_admin, 'events_event_meta_box_template' );
+
+		$this->loader->add_action( 'acf/render_field', $plugin_admin, 'add_assigned_teachers_table', 10, 1 );
 	}
 
 	/**
@@ -217,6 +219,9 @@ class EMC_CustomEventsForms {
 		//$this->loader->add_action( 'wp_insert_post', $plugin_admin, 'my_new_event_send_email', 10, 3 );
 		//
 		$this->loader->add_action( 'gform_after_submission', $plugin_public, 'save_post_id_on_gravity_forms', 10, 2 );
+
+		$this->loader->add_filter( 'posts_where', $plugin_public, 'change_query_where_for_events_list', 50 );
+		$this->loader->add_action( 'pre_get_posts', $plugin_public, 'change_query_args_for_events_list', 50 );
 
 	}
 

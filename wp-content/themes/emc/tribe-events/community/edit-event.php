@@ -59,6 +59,8 @@ $events_label_singular = tribe_get_event_label_singular();
 
 	<?php tribe_get_template_part( 'community/modules/datepickers' ); ?>
 
+	<?php //if ( isset( $_POST['prepopulate_event_date'] ) ) echo $_POST['prepopulate_event_date']; ?>
+
 	<?php tribe_get_template_part( 'community/modules/venue' ); ?>
 
 	<?php tribe_get_template_part( 'community/modules/organizer' ); ?>

@@ -25,3 +25,35 @@
 #event_organizer .multiples-inputs .input-wrap .minus {
   right: 10px;
 }
+
+tr[data-name="assigned_teachers"] .acf-input {
+  display: flex;
+  flex-direction: column;
+}
+tr[data-name="assigned_teachers"] .acf-input #assigned-teachers-table_wrapper {
+  background-color: #f9f9f9;
+  margin-top: 20px;
+  order: 999;
+  padding: 15px;
+  font-size: 12px;
+}
+tr[data-name="assigned_teachers"] .acf-input #assigned-teachers-table_wrapper .dataTables_length {
+  width: 30%;
+}
+tr[data-name="assigned_teachers"] .acf-input #assigned-teachers-table_wrapper .dataTables_length select {
+  font-size: 12px;
+  height: 23px;
+  width: 60px;
+}
+tr[data-name="assigned_teachers"] .acf-input #assigned-teachers-table_wrapper .dataTables_filter {
+  width: 65%;
+}
+tr[data-name="assigned_teachers"] .acf-input #assigned-teachers-table_wrapper .dataTables_filter input {
+  width: 60%;
+}
+tr[data-name="assigned_teachers"] .acf-input #assigned-teachers-table_wrapper #assigned-teachers-table {
+  margin: 15px 0;
+}
+tr[data-name="assigned_teachers"] .acf-input #assigned-teachers-table_wrapper td {
+  font-size: 12px;
+}

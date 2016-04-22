@@ -73,7 +73,9 @@ class EMC_CustomEventsForms_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/emc-custom-events-forms-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name . '-datatable', '//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css', array(), '1.10.11' );
+
+    wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/emc-custom-events-forms-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,7 +98,9 @@ class EMC_CustomEventsForms_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/emc-custom-events-forms-admin.js', array( 'jquery' ), $this->version, false );
+    wp_enqueue_script( $this->plugin_name . '-datatable', '//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js', array(), '1.10.11', false );
+
+    wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/emc-custom-events-forms-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -238,7 +242,7 @@ class EMC_CustomEventsForms_Admin {
     $message .= get_the_title( $post->ID ) . ": " . $post_url;
 
   // Send email to admin.
-    wp_mail( 'paulo@saucal.com', $subject, $message );
+    //wp_mail( 'paulo@saucal.com', $subject, $message );
   }
 
   /**
@@ -429,5 +433,53 @@ class EMC_CustomEventsForms_Admin {
         }
       break;
     }
+  }
+
+  function add_assigned_teachers_table( $field ) {
+
+    if ( 'assigned_teachers' == $field['_name'] && $field['choices'] ) {
+      global $wpdb;
+      $group_id = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = 'Custom Teacher User Fields'" );
+      $custom_fields = acf_get_fields_by_id( $group_id );
+      ?>
+      <table id="assigned-teachers-table" class="display" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>Email</td>
+            <?php
+            if ( $custom_fields ) {
+              foreach ( $custom_fields as $custom_field ) {
+                printf( '<td>%s</td>', $custom_field['label'] );
+              }
+            }
+            ?>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          foreach ( $field['choices'] as $user_id => $user_name ) {
+            $userdata = get_userdata( $user_id );
+            echo '<tr>';
+            printf( '<td>%s</td><td>%s</td>', $user_name, $userdata->user_email );
+
+            if ( $custom_fields ) {
+              foreach ( $custom_fields as $custom_field ) {
+                printf( '<td>%s</td>', get_field( $custom_field['name'], 'user_' . $user_id ) );
+              }
+            }
+            echo '</tr>';
+          }
+          ?>
+        </tbody>
+      </table>
+      <script>
+      jQuery(document).ready(function() {
+          jQuery('#assigned-teachers-table').DataTable();
+      } );
+      </script>
+      <?php
+    }
+
   }
 }
